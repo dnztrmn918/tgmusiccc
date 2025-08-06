@@ -335,27 +335,30 @@ HELP_32 = """ 🤖 <b>BOT LIST</b> 🎯
 HELP_33 = """ 📝 <b>MARKDOWN HELP</b> 📖
 
 • /markdownhelp - Help about Markdown 🔧 """
+HELP_34 = """ 🏷️ <b>ÖZEL TAG YARDIMI</b> 🌟
 
-# 🏷️ WISH TAG HELP
-HELP_34 = """ 🏷️ <b>WISH TAG HELP</b> 🌟
+<b>Günaydın:</b> 🌅
+• /gtag - Günaydın mesajlarını başlat ☀️
 
-<b>Good Morning:</b> 🌅
-• /gmtag - Start Good Morning tagging ☀️
-• /gmstop - Stop Good Morning tagging 🛑
+<b>İyi Akşamlar:</b> 🌞
+• /itag - İyi akşamlar mesajlarını başlat 🌤️
 
-<b>Good Afternoon:</b> 🌞
-• /gatag - Start Good Afternoon tagging 🌤️
-• /gastop - Stop Good Afternoon tagging 🛑
+<b>İyi Geceler:</b> 🌙
+• /stag - İyi geceler mesajlarını başlat 🌜
 
-<b>Good Night:</b> 🌙
-• /gntag - Start Good Night tagging 🌜
-• /gnstop - Stop Good Night tagging 🛑
+<b>Kurt Oyunu:</b> 🐺
+• /ktag - Kurt oyunu çağırmalarını başlat ⚔️
 
-<b>Utility:</b> ⚙️
-• /stopall - Stop all active tagging 🚫
-• /taghelp - Show this help message 📖
+<b>Yardımcı Komutlar:</b> ⚙️
+• /cancel - Aktif tüm mesajları durdur 🚫
+• /taghelp - Bu yardım mesajını göster 📖
 
-<b>Note:</b> Only one tagging session can run per chat at a time 📌 """
+<b>Not:</b> Aynı anda bir sohbet için sadece bir mesajlaşma oturumu çalışabilir 📌
+"""
+
+
+<b>Not:</b> Aynı anda bir sohbet için sadece bir mesajlaşma oturumu çalışabilir 📌
+"""
 
 HELP_35 = """ <b>User Welcome Message</b>
 • /welcome on/off: Enable or Disable welcome message . """
