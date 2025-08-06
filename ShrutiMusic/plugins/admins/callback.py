@@ -88,8 +88,8 @@ async def fork_repo_callback(client, query):
         reply_markup=InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("📢 Grubumuz", url="https://t.me/GrupLinki"),
-                    InlineKeyboardButton("📺 Kanalımız", url="https://t.me/KanalLinki")
+                    InlineKeyboardButton("📢 Grubumuz", url="https://t.me/+W4N0wBYvXhFhMGI0"),
+                    InlineKeyboardButton("📺 Kanalımız", url="https://t.me/tubidymusic")
                 ],
                 [
                     InlineKeyboardButton("🔙 Geri", callback_data="settingsback_helper")
