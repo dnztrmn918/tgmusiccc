@@ -3,6 +3,7 @@
 
 import json
 import random
+import os
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from ShrutiMusic import app  # bot instance
@@ -10,28 +11,43 @@ from config import OWNER_ID  # sudo kontrolü için
 
 KANAL = "@tubidymusic"
 
-# JSON dosyasını kontrol et / oluştur
-def veri_kontrol_et():
+# JSON dosyasını güvenli şekilde yükle
+def veri_yukle():
+    if not os.path.exists("veri.json"):
+        return {"siirler": [], "sozler": []}
     try:
         with open("veri.json", "r", encoding="utf-8") as f:
-            json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
+            veri = json.load(f)
+    except json.JSONDecodeError:
+        return {"siirler": [], "sozler": []}
+    if "siirler" not in veri:
+        veri["siirler"] = []
+    if "sozler" not in veri:
+        veri["sozler"] = []
+    return veri
+
+# JSON dosyasını kontrol et / oluştur
+def veri_kontrol_et():
+    if not os.path.exists("veri.json"):
         with open("veri.json", "w", encoding="utf-8") as f:
             json.dump({"siirler": [], "sozler": []}, f, indent=4, ensure_ascii=False)
+    else:
+        # bozuksa sıfırla
+        try:
+            veri_yukle()
+        except Exception:
+            with open("veri.json", "w", encoding="utf-8") as f:
+                json.dump({"siirler": [], "sozler": []}, f, indent=4, ensure_ascii=False)
 
 veri_kontrol_et()
 
 # JSON'a veri ekleme
 def veri_ekle(kategori: str, metin_dict: dict) -> bool:
     try:
-        with open("veri.json", "r", encoding="utf-8") as dosya:
-            veri = json.load(dosya)
-
+        veri = veri_yukle()
         veri[kategori].append(metin_dict)
-
         with open("veri.json", "w", encoding="utf-8") as dosya:
             json.dump(veri, dosya, indent=4, ensure_ascii=False)
-
         return True
     except Exception as e:
         print(f"[HATA]: {e}")
@@ -41,8 +57,7 @@ def veri_ekle(kategori: str, metin_dict: dict) -> bool:
 @app.on_message(filters.command(["siir", ".siir"]))
 async def siir_gonder(client: Client, message: Message):
     try:
-        with open("veri.json", "r", encoding="utf-8") as dosya:
-            veri = json.load(dosya)
+        veri = veri_yukle()
         if not veri["siirler"]:
             return await message.reply_text("📭 Henüz eklenmiş bir şiir yok.")
 
@@ -58,8 +73,7 @@ async def siir_gonder(client: Client, message: Message):
 @app.on_message(filters.command(["soz", ".soz"]))
 async def soz_gonder(client: Client, message: Message):
     try:
-        with open("veri.json", "r", encoding="utf-8") as dosya:
-            veri = json.load(dosya)
+        veri = veri_yukle()
         if not veri["sozler"]:
             return await message.reply_text("📭 Henüz eklenmiş bir söz yok.")
 
