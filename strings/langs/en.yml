@@ -228,7 +228,7 @@ H_B_30 : "🔤 Yazı Tipi"
 H_B_31 : "📜 Şiir"
 H_B_32 : "🤖 Botlar"
 H_B_33 : "🔰 Markdown"
-H_B_34 : "⛩️ Dilek Etiketi"
+H_B_34 : "⛩️ Özel Etiketi"
 H_B_35 : "👀 Hoş Geldin"
 
 S_H_1 : "📷 𝐆ᴇʟɪşᴛɪʀɪᴄɪ"
@@ -337,3 +337,4 @@ gban_9 : "» {0} üzerindeki global yasak kaldırıldı.\n\nYasak kaldırıldı�
 gban_10 : "» Bot tarafından global yasaklanmış kimse yok."
 gban_11 : "» Yasaklanan kullanıcılar listesi alınıyor..."
 gban_12 : "🙂 <b>Global olarak yasaklanan kullanıcılar :</b>\n\n"
+
