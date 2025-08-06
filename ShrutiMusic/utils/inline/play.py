@@ -23,8 +23,10 @@
 import math
 from pyrogram.types import InlineKeyboardButton
 from ShrutiMusic.utils.formatters import time_to_seconds
-from config import BOT_USERNAME, SUPPORT_GROUP, SUPPORT_CHANNEL
+from config import BOT_USERNAME
 
+SUPPORT_GROUP = "https://t.me/Cevatbey"
+SUPPORT_CHANNEL = "https://t.me/tubidymusic"
 
 def track_markup(_, videoid, user_id, channel, fplay):
     buttons = [
@@ -89,8 +91,8 @@ def stream_markup_timer(_, chat_id, played, dur):
             InlineKeyboardButton(text="▢", callback_data=f"ADMIN Stop|{chat_id}"),
         ],
         [
-            InlineKeyboardButton(text="💬 sᴜᴘᴘᴏʀᴛ", url=SUPPORT_GROUP),
-            InlineKeyboardButton(text="📢 ᴄʜᴀɴɴᴇʟ", url=SUPPORT_CHANNEL),
+            InlineKeyboardButton(text="💬 ʏᴀʀᴅıᴍ", url=SUPPORT_GROUP),
+            InlineKeyboardButton(text="📢 ꜱ̧ɪɪʀ ᴍᴜ̈ᴢɪᴋ", url=SUPPORT_CHANNEL),
         ],
         [InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close")],
     ]
@@ -180,12 +182,3 @@ def slider_markup(_, videoid, user_id, query, query_type, channel, fplay):
         ],
     ]
     return buttons
-
-
-# ©️ Copyright Reserved - @NoxxOP  Nand Yaduwanshi
-
-# ===========================================
-# ©️ 2025 Nand Yaduwanshi (aka @NoxxOP)
-# 🔗 GitHub : https://github.com/NoxxOP/ShrutiMusic
-# 📢 Telegram Channel : https://t.me/ShrutiBots
-# ===========================================
