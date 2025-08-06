@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-# 📁 siir_soz.py
+# 📁 babusona.py
 
 import json
 import random
-import os
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from ShrutiMusic import app  # bot instance
@@ -11,43 +10,28 @@ from config import OWNER_ID  # sudo kontrolü için
 
 KANAL = "@tubidymusic"
 
-# JSON dosyasını güvenli şekilde yükle
-def veri_yukle():
-    if not os.path.exists("veri.json"):
-        return {"siirler": [], "sozler": []}
-    try:
-        with open("veri.json", "r", encoding="utf-8") as f:
-            veri = json.load(f)
-    except json.JSONDecodeError:
-        return {"siirler": [], "sozler": []}
-    if "siirler" not in veri:
-        veri["siirler"] = []
-    if "sozler" not in veri:
-        veri["sozler"] = []
-    return veri
-
 # JSON dosyasını kontrol et / oluştur
 def veri_kontrol_et():
-    if not os.path.exists("veri.json"):
+    try:
+        with open("veri.json", "r", encoding="utf-8") as f:
+            json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
         with open("veri.json", "w", encoding="utf-8") as f:
             json.dump({"siirler": [], "sozler": []}, f, indent=4, ensure_ascii=False)
-    else:
-        # bozuksa sıfırla
-        try:
-            veri_yukle()
-        except Exception:
-            with open("veri.json", "w", encoding="utf-8") as f:
-                json.dump({"siirler": [], "sozler": []}, f, indent=4, ensure_ascii=False)
 
 veri_kontrol_et()
 
 # JSON'a veri ekleme
 def veri_ekle(kategori: str, metin_dict: dict) -> bool:
     try:
-        veri = veri_yukle()
+        with open("veri.json", "r", encoding="utf-8") as dosya:
+            veri = json.load(dosya)
+
         veri[kategori].append(metin_dict)
+
         with open("veri.json", "w", encoding="utf-8") as dosya:
             json.dump(veri, dosya, indent=4, ensure_ascii=False)
+
         return True
     except Exception as e:
         print(f"[HATA]: {e}")
@@ -57,14 +41,22 @@ def veri_ekle(kategori: str, metin_dict: dict) -> bool:
 @app.on_message(filters.command(["siir", ".siir"]))
 async def siir_gonder(client: Client, message: Message):
     try:
-        veri = veri_yukle()
+        with open("veri.json", "r", encoding="utf-8") as dosya:
+            veri = json.load(dosya)
         if not veri["siirler"]:
             return await message.reply_text("📭 Henüz eklenmiş bir şiir yok.")
 
         secilen = random.choice(veri["siirler"])
         metin = secilen.get("metin", "Şiir bulunamadı.")
         yazar = secilen.get("yazar", "Anonim")
-        cevap = f"📜 {metin}\n\n— {yazar}\n\n📢 Paylaşım Kanalı: {KANAL}"
+
+        cevap = (
+            "📜 𝐒ᴇɴɪɴ ɪᴄ̧ɪɴ şᴇᴄ̧ᴛɪɢ̆ɪᴍɪᴢ 𝐒̧ɪɪʀ\n\n"
+            f"{metin}\n\n"
+            f"— {yazar}\n\n"
+            f"📣 𝐒̧ɪɪʀ 𝐌ᴜ̈ᴢɪᴋ 𝐊ᴀɴᴀʟɪᴍɪᴢ: {KANAL}"
+        )
+
         await message.reply_text(cevap)
     except Exception:
         await message.reply_text("❌ Şiir gönderilemedi.")
@@ -73,14 +65,22 @@ async def siir_gonder(client: Client, message: Message):
 @app.on_message(filters.command(["soz", ".soz"]))
 async def soz_gonder(client: Client, message: Message):
     try:
-        veri = veri_yukle()
+        with open("veri.json", "r", encoding="utf-8") as dosya:
+            veri = json.load(dosya)
         if not veri["sozler"]:
             return await message.reply_text("📭 Henüz eklenmiş bir söz yok.")
 
         secilen = random.choice(veri["sozler"])
         metin = secilen.get("metin", "Söz bulunamadı.")
         yazar = secilen.get("yazar", "Anonim")
-        cevap = f"📝 {metin}\n\n— {yazar}\n\n📢 Paylaşım Kanalı: {KANAL}"
+
+        cevap = (
+            "📝 𝐒ᴇɴɪɴ ɪᴄ̧ɪɴ şᴇᴄ̧ᴛɪɢ̆ɪᴍɪᴢ 𝐒ᴏ̈ᴢ\n\n"
+            f"{metin}\n\n"
+            f"— {yazar}\n\n"
+            f"📣 𝐒̧ɪɪʀ 𝐌ᴜ̈ᴢɪᴋ 𝐊ᴀɴᴀʟɪᴍɪᴢ: {KANAL}"
+        )
+
         await message.reply_text(cevap)
     except Exception:
         await message.reply_text("❌ Söz gönderilemedi.")
