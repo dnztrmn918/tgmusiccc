@@ -27,7 +27,7 @@ from pyrogram.enums import ChatMembersFilter
 from pyrogram.errors import FloodWait
 
 from ShrutiMusic import app
-from ShrutiMusic.misc import SUDOERS
+from ShrutiMusic.misc import SUDOERS  # MongoDB'den çekiliyor
 from ShrutiMusic.utils.database import (
     get_active_chats,
     get_authuser_names,
@@ -39,22 +39,19 @@ from ShrutiMusic.utils.decorators.language import language
 from ShrutiMusic.utils.formatters import alpha_to_int
 from config import adminlist
 
-# Add specific user IDs that can use the broadcast command
-BROADCAST_ALLOWED_IDS = [7574330905, 1786683163, 7674874652, 7282752816]
-
 IS_BROADCASTING = False
 
 
-@app.on_message(filters.command("broadcast") & (filters.user(BROADCAST_ALLOWED_IDS) | SUDOERS))
+@app.on_message((filters.command(["broadcast", "yayınla"])) & filters.user(SUDOERS))
 @language
-async def braodcast_message(client, message, _):
+async def broadcast_message(client, message, _):
     global IS_BROADCASTING
 
     if "-wfchat" in message.text or "-wfuser" in message.text:
         if not message.reply_to_message or not (message.reply_to_message.photo or message.reply_to_message.text):
-            return await message.reply_text("Please reply to a text or image message for broadcasting.")
+            return await message.reply_text("Lütfen yayınlamak istediğiniz metin veya fotoğrafa yanıt verin.")
 
-        # Extract data from the replied message
+        # Yanıtlanan mesajdan içerik çıkar
         if message.reply_to_message.photo:
             content_type = 'photo'
             file_id = message.reply_to_message.photo.file_id
@@ -66,10 +63,9 @@ async def braodcast_message(client, message, _):
         reply_markup = message.reply_to_message.reply_markup if hasattr(message.reply_to_message, 'reply_markup') else None
 
         IS_BROADCASTING = True
-        await message.reply_text(_["broad_1"])
+        await message.reply_text("Yayın işlemi başlatıldı, lütfen bekleyin...")
 
         if "-wfchat" in message.text:
-            # Broadcasting to chats
             sent_chats = 0
             chats = [int(chat["chat_id"]) for chat in await get_served_chats()]
             for i in chats:
@@ -84,10 +80,9 @@ async def braodcast_message(client, message, _):
                     await asyncio.sleep(fw.x)
                 except:
                     continue
-            await message.reply_text(f"Broadcast to chats completed! Sent to {sent_chats} chats.")
+            await message.reply_text(f"Sohbetlere yayın tamamlandı! Toplam {sent_chats} sohbet.")
 
         if "-wfuser" in message.text:
-            # Broadcasting to users
             sent_users = 0
             users = [int(user["user_id"]) for user in await get_served_users()]
             for i in users:
@@ -102,44 +97,31 @@ async def braodcast_message(client, message, _):
                     await asyncio.sleep(fw.x)
                 except:
                     continue
-            await message.reply_text(f"Broadcast to users completed! Sent to {sent_users} users.")
+            await message.reply_text(f"Kullanıcılara yayın tamamlandı! Toplam {sent_users} kullanıcı.")
 
         IS_BROADCASTING = False
         return
 
-    
     if message.reply_to_message:
         x = message.reply_to_message.id
         y = message.chat.id
         reply_markup = message.reply_to_message.reply_markup if message.reply_to_message.reply_markup else None
-        content = None
     else:
         if len(message.command) < 2:
-            return await message.reply_text(_["broad_2"])
+            return await message.reply_text("Lütfen yayınlamak istediğiniz mesajı yazın.")
         query = message.text.split(None, 1)[1]
-        if "-pin" in query:
-            query = query.replace("-pin", "")
-        if "-nobot" in query:
-            query = query.replace("-nobot", "")
-        if "-pinloud" in query:
-            query = query.replace("-pinloud", "")
-        if "-assistant" in query:
-            query = query.replace("-assistant", "")
-        if "-user" in query:
-            query = query.replace("-user", "")
-        if query == "":
-            return await message.reply_text(_["broad_8"])
+        for flag in ["-pin", "-nobot", "-pinloud", "-assistant", "-user"]:
+            query = query.replace(flag, "")
+        if query.strip() == "":
+            return await message.reply_text("Boş mesaj ile yayın yapamazsınız.")
 
     IS_BROADCASTING = True
-    await message.reply_text(_["broad_1"])
+    await message.reply_text("Yayın işlemi başlatıldı, lütfen bekleyin...")
 
     if "-nobot" not in message.text:
         sent = 0
         pin = 0
-        chats = []
-        schats = await get_served_chats()
-        for chat in schats:
-            chats.append(int(chat["chat_id"]))
+        chats = [int(chat["chat_id"]) for chat in await get_served_chats()]
         for i in chats:
             try:
                 m = (
@@ -152,13 +134,13 @@ async def braodcast_message(client, message, _):
                         await m.pin(disable_notification=True)
                         pin += 1
                     except:
-                        continue
+                        pass
                 elif "-pinloud" in message.text:
                     try:
                         await m.pin(disable_notification=False)
                         pin += 1
                     except:
-                        continue
+                        pass
                 sent += 1
                 await asyncio.sleep(0.2)
             except FloodWait as fw:
@@ -169,16 +151,13 @@ async def braodcast_message(client, message, _):
             except:
                 continue
         try:
-            await message.reply_text(_["broad_3"].format(sent, pin))
+            await message.reply_text(f"Yayın tamamlandı! Toplam gönderilen sohbet: {sent}, sabitlenen mesaj: {pin}")
         except:
             pass
 
     if "-user" in message.text:
         susr = 0
-        served_users = []
-        susers = await get_served_users()
-        for user in susers:
-            served_users.append(int(user["user_id"]))
+        served_users = [int(user["user_id"]) for user in await get_served_users()]
         for i in served_users:
             try:
                 m = (
@@ -196,13 +175,13 @@ async def braodcast_message(client, message, _):
             except:
                 pass
         try:
-            await message.reply_text(_["broad_4"].format(susr))
+            await message.reply_text(f"Kullanıcılara yayın tamamlandı! Toplam gönderilen kullanıcı: {susr}")
         except:
             pass
 
     if "-assistant" in message.text:
-        aw = await message.reply_text(_["broad_5"])
-        text = _["broad_6"]
+        aw = await message.reply_text("Asistanlar üzerinden yayın yapılıyor, lütfen bekleyin...")
+        text = "Asistanlar üzerinden gönderilen mesajlar:\n"
         from ShrutiMusic.core.userbot import assistants
 
         for num in assistants:
@@ -210,11 +189,10 @@ async def braodcast_message(client, message, _):
             client = await get_client(num)
             async for dialog in client.get_dialogs():
                 try:
-                    await client.forward_messages(
-                        dialog.chat.id, y, x
-                    ) if message.reply_to_message else await client.send_message(
-                        dialog.chat.id, text=query
-                    )
+                    if message.reply_to_message:
+                        await client.forward_messages(dialog.chat.id, y, x)
+                    else:
+                        await client.send_message(dialog.chat.id, text=query)
                     sent += 1
                     await asyncio.sleep(3)
                 except FloodWait as fw:
@@ -224,11 +202,12 @@ async def braodcast_message(client, message, _):
                     await asyncio.sleep(flood_time)
                 except:
                     continue
-            text += _["broad_7"].format(num, sent)
+            text += f"Asistan {num} - Gönderilen mesaj sayısı: {sent}\n"
         try:
             await aw.edit_text(text)
         except:
             pass
+
     IS_BROADCASTING = False
 
 
