@@ -122,7 +122,7 @@ gstats_1 : "📊 {0} İstatistikleri ve Bilgileri Alınıyor...\n\nBiraz sürebi
 gstats_2 : "⬇️ Aşağıdaki butonlara tıklayarak {0} istatistiklerini kontrol edin."
 gstats_3 : "<b><u>{0} İstatistikleri ve Bilgileri:</u></b>\n\n<b>Asistanlar:</b> <code>{1}</code>\n<b>Engellenen:</b> <code>{2}</code>\n<b>Sohbetler:</b> <code>{3}</code>\n<b>Kullanıcılar:</b> <code>{4}</code>\n<b>Modüller:</b> <code>{5}</code>\n<b>Sudo Kullanıcılar:</b> <code>{6}</code>\n\n<b>Video Sohbetlerden Otomatik Çıkış:</b> {7}\n<b>Gruplardan Otomatik Çıkış:</b> {9}\n<b>Oynatma Süre Limiti:</b> {8} Dakika"
 gstats_4 : "⛔ Bu buton yalnızca sudo kullanıcılar içindir."
-gstats_5 : "<b><u>{0} İstatistikleri ve Bilgileri:</u></b>\n\n<b>Modüller:</b> <code>{1}</code>\n<b>Platformlar:</b> <code>{2}</code>\n<b>RAM:</b> <code>{3}</code>\n<b>Fiziksel Çekirdek:</b> <code>{4}</code>\n<b>Toplam Çekirdek:</b> <code>{5}</code>\n<b>CPU Frekansı:</b> <code>{6}</code>\n\n<b>Python:</b> <code>{7}</c_
+gstats_5 : "<b><u>{0} İstatistikleri ve Bilgileri:</u></b>\n\n<b>Modüller:</b> <code>{1}</code>\n<b>Platformlar:</b> <code>{2}</code>\n<b>RAM:</b> <code>{3}</code>\n<b>Fiziksel Çekirdek:</b> <code>{4}</code>\n<b>Toplam Çekirdek:</b> <code>{5}</code>\n<b>CPU Frekansı:</b> <code>{6}</code>\n\n<b>Python:</b> <code>{7}</code>"
 
 playcb_1 : "📵 Bu sana göre değil."
 playcb_2 : "🔍 Sonraki sonuçlar getiriliyor,\n\nLütfen bekleyin..."
