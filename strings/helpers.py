@@ -356,10 +356,6 @@ HELP_34 = """ 🏷️ <b>ÖZEL TAG YARDIMI</b> 🌟
 <b>Not:</b> Aynı anda bir sohbet için sadece bir mesajlaşma oturumu çalışabilir 📌
 """
 
-
-<b>Not:</b> Aynı anda bir sohbet için sadece bir mesajlaşma oturumu çalışabilir 📌
-"""
-
 HELP_35 = """ <b>User Welcome Message</b>
 • /welcome on/off: Enable or Disable welcome message . """
 
