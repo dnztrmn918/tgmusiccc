@@ -1,23 +1,23 @@
-# Copyright (c) 2025 Nand Yaduwanshi <NoxxOP>
-# Location: Supaul, Bihar
+# Telif Hakkı (c) 2025 Nand Yaduwanshi <NoxxOP>
+# Konum: Supaul, Bihar
 #
-# All rights reserved.
+# Tüm hakları saklıdır.
 #
-# This code is the intellectual property of Nand Yaduwanshi.
-# You are not allowed to copy, modify, redistribute, or use this
-# code for commercial or personal projects without explicit permission.
+# Bu kod Nand Yaduwanshi'nin fikri mülkiyetidir.
+# Açık izin olmadan bu kodu kopyalamak, değiştirmek, yeniden dağıtmak
+# veya ticari / kişisel projelerde kullanmak yasaktır.
 #
-# Allowed:
-# - Forking for personal learning
-# - Submitting improvements via pull requests
+# İzin verilenler:
+# - Kendi öğreniminiz için forklayabilirsiniz
+# - Pull request ile geliştirme gönderebilirsiniz
 #
-# Not Allowed:
-# - Claiming this code as your own
-# - Re-uploading without credit or permission
-# - Selling or using commercially
+# İzin verilmeyenler:
+# - Kodu kendinize aitmiş gibi göstermek
+# - İzin veya kredi vermeden yeniden yüklemek
+# - Satmak veya ticari amaçla kullanmak
 #
-# Contact for permissions:
-# Email: badboy809075@gmail.com
+# İzin almak için iletişim:
+# E-posta: badboy809075@gmail.com
 
 import uvloop
 
@@ -38,7 +38,7 @@ from ..logging import LOGGER
 
 class Aviax(Client):
     def __init__(self):
-        LOGGER(__name__).info(f"sᴛᴀʀᴛɪɴɢ ʙᴏᴛ...")
+        LOGGER(__name__).info("Bot başlatılıyor...")
         super().__init__(
             name="ShrutiMusic",
             api_id=config.API_ID,
@@ -57,69 +57,85 @@ class Aviax(Client):
         self.name = self.me.first_name + " " + (self.me.last_name or "")
         self.mention = self.me.mention
 
-        # Create the button
+        # Davet butonu oluştur
         button = InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        text="๏ ᴀᴅᴅ ᴍᴇ ɪɴ ɢʀᴏᴜᴘ ๏",
+                        text="📌 Beni Grubuna Ekle",
                         url=f"https://t.me/{self.username}?startgroup=true",
                     )
                 ]
             ]
         )
 
-        # Try to send a message to the logger group
+        # Log grubuna mesaj gönder
         if config.LOG_GROUP_ID:
             try:
                 await self.send_photo(
                     config.LOG_GROUP_ID,
                     photo=config.START_IMG_URL,
-                    caption=f"╔════❰𝗪𝗘𝗟𝗖𝗢𝗠𝗘❱════❍⊱❁۪۪\n║\n║┣⪼🥀ʙᴏᴛ sᴛᴀʀᴛᴇᴅ🎉\n║\n║┣⪼ {self.name}\n║\n║┣⪼🎈ɪᴅ:- `{self.id}` \n║\n║┣⪼🎄@{self.username} \n║ \n║┣⪼💖ᴛʜᴀɴᴋs ғᴏʀ ᴜsɪɴɢ😍\n║\n╚════════════════❍⊱❁",
+                    caption=(
+                        f"╔════❰ 𝗛𝗢𝗦𝗚𝗘𝗟𝗗𝗜𝗡 ❱════❍⊱❁۪۪\n"
+                        f"║\n"
+                        f"║┣⪼ 🎉 Bot başlatıldı!\n"
+                        f"║\n"
+                        f"║┣⪼ 🤖 Ad: {self.name}\n"
+                        f"║┣⪼ 🆔 ID: `{self.id}`\n"
+                        f"║┣⪼ 📌 Kullanıcı Adı: @{self.username}\n"
+                        f"║\n"
+                        f"║💖 Kullandığınız için teşekkürler!\n"
+                        f"╚════════════════❍⊱❁"
+                    ),
                     reply_markup=button,
                 )
             except pyrogram.errors.ChatWriteForbidden as e:
-                LOGGER(__name__).error(f"Bot cannot write to the log group: {e}")
+                LOGGER(__name__).error(f"Bot log grubuna yazamıyor: {e}")
                 try:
                     await self.send_message(
                         config.LOG_GROUP_ID,
-                        f"╔═══❰𝗪𝗘𝗟𝗖𝗢𝗠𝗘❱═══❍⊱❁۪۪\n║\n║┣⪼🥀ʙᴏᴛ sᴛᴀʀᴛᴇᴅ🎉\n║\n║◈ {self.name}\n║\n║┣⪼🎈ɪᴅ:- `{self.id}` \n║\n║┣⪼🎄@{self.username} \n║ \n║┣⪼💖ᴛʜᴀɴᴋs ғᴏʀ ᴜsɪɴɢ😍\n║\n╚══════════════❍⊱❁",
+                        (
+                            f"╔═══❰ 𝗛𝗢𝗦𝗚𝗘𝗟𝗗𝗜𝗡 ❱═══❍⊱❁۪۪\n"
+                            f"║\n"
+                            f"║┣⪼ 🎉 Bot başlatıldı!\n"
+                            f"║\n"
+                            f"║🤖 Ad: {self.name}\n"
+                            f"║🆔 ID: `{self.id}`\n"
+                            f"║📌 Kullanıcı Adı: @{self.username}\n"
+                            f"║\n"
+                            f"║💖 Kullandığınız için teşekkürler!\n"
+                            f"╚══════════════❍⊱❁"
+                        ),
                         reply_markup=button,
                     )
                 except Exception as e:
-                    LOGGER(__name__).error(f"Failed to send message in log group: {e}")
+                    LOGGER(__name__).error(f"Log grubuna mesaj gönderilemedi: {e}")
             except Exception as e:
-                LOGGER(__name__).error(
-                    f"Unexpected error while sending to log group: {e}"
-                )
+                LOGGER(__name__).error(f"Log grubuna gönderimde beklenmeyen hata: {e}")
         else:
-            LOGGER(__name__).warning(
-                "LOG_GROUP_ID is not set, skipping log group notifications."
-            )
+            LOGGER(__name__).warning("LOG_GROUP_ID ayarlanmamış, log mesajı gönderilmeyecek.")
 
-        # Check if bot is an admin in the logger group
+        # Bot log grubunda admin mi kontrol et
         if config.LOG_GROUP_ID:
             try:
                 chat_member_info = await self.get_chat_member(
                     config.LOG_GROUP_ID, self.id
                 )
                 if chat_member_info.status != ChatMemberStatus.ADMINISTRATOR:
-                    LOGGER(__name__).error(
-                        "Please promote Bot as Admin in Logger Group"
-                    )
+                    LOGGER(__name__).error("Lütfen botu log grubunda yönetici yapın.")
             except Exception as e:
-                LOGGER(__name__).error(f"Error occurred while checking bot status: {e}")
+                LOGGER(__name__).error(f"Bot durum kontrolünde hata: {e}")
 
-        LOGGER(__name__).info(f"Music Bot Started as {self.name}")
+        LOGGER(__name__).info(f"Müzik Botu {self.name} olarak başlatıldı.")
 
     async def stop(self):
         await super().stop()
+        LOGGER(__name__).info("Bot durduruldu.")
 
 
-# ©️ Copyright Reserved - @NoxxOP  Nand Yaduwanshi
-
+# ©️ Telif Hakkı Saklıdır - @NoxxOP  Nand Yaduwanshi
 # ===========================================
 # ©️ 2025 Nand Yaduwanshi (aka @NoxxOP)
 # 🔗 GitHub : https://github.com/NoxxOP/ShrutiMusic
-# 📢 Telegram Channel : https://t.me/ShrutiBots
+# 📢 Telegram Kanalı : https://t.me/ShrutiBots
 # ===========================================
