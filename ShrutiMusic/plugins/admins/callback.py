@@ -74,30 +74,29 @@ async def show_help_page1(client, callback_query: CallbackQuery):
         caption=_["help_1"].format(SUPPORT_GROUP),
         reply_markup=help_pannel_page1(_, START=True)
     )
-
+    
 @app.on_callback_query(filters.regex("fork_repo"))
 async def fork_repo_callback(client, query):
     await query.message.edit_text(
         text=(
-            "✨ <b>ʙᴜɪʟᴅ Yᴏᴜʀ Oᴡɴ ᴍᴜsɪᴄ ʙᴏᴛ 🎧</b>\n\n"
-            "🚀 ʀᴇᴀᴅʏ ᴛᴏ ʟᴀᴜɴᴄʜ ʏᴏᴜʀ ᴏᴡɴ ʙᴏᴛ?\n"
-            "ғᴏʀᴋ ᴛʜᴇ ʀᴇᴘᴏ ᴀɴᴅ ᴅᴇᴘʟᴏʏ ɪɴ sᴇᴄᴏɴᴅs.\n\n"
-            "🔧 <b>Cᴜsᴛᴏᴍɪᴢᴇ ɪᴛ. Dᴇᴘʟᴏʏ ɪᴛ. Vɪʙᴇ ᴡɪᴛʜ ɪᴛ 🔥</b>"
+            "✨ <b>TUBIDYMUSIC BOTUNA HOŞ GELDİN 🎧</b>\n\n"
+            "🚀 Müzik ve şiir keyfini başlatmaya hazır mısın?\n"
+            "Botumuzu hemen kullan, grubumuza ve kanalımıza katıl!\n\n"
+            "🔧 <b>Özelleştir. Yayınla. Eğlen! 🔥</b>"
         ),
         disable_web_page_preview=True,
         reply_markup=InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("🚀 Fᴏʀᴋ Rᴇᴘᴏ", url="https://github.com/NoxxOP/ShrutiMusic/fork"),
-                    InlineKeyboardButton("⚡ Hᴇʀᴏᴋᴜ Dᴇᴘʟᴏʏ", url="https://dashboard.heroku.com/new?template=https://github.com/NoxxOP/ShrutiMusic")
+                    InlineKeyboardButton("📢 Grubumuz", url="https://t.me/GrupLinki"),
+                    InlineKeyboardButton("📺 Kanalımız", url="https://t.me/KanalLinki")
                 ],
                 [
-                    InlineKeyboardButton("🔙 Bᴀᴄᴋ", callback_data="settingsback_helper")
+                    InlineKeyboardButton("🔙 Geri", callback_data="settingsback_helper")
                 ]
             ]
         )
     )
-
 
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup
@@ -124,7 +123,7 @@ async def about_cb(client, callback_query):
             reply_markup=InlineKeyboardMarkup(about_panel(_))
         )
     except Exception as e:
-        await callback_query.answer(f"❌ Error: {e}", show_alert=True)
+        await callback_query.answer(f"❌ Hata: {e}", show_alert=True)
 
 @app.on_callback_query(filters.regex("owner_page") & ~BANNED_USERS)
 async def owner_page_cb(client, callback_query):
@@ -136,7 +135,7 @@ async def owner_page_cb(client, callback_query):
             reply_markup=InlineKeyboardMarkup(owner_panel(_))
         )
     except Exception as e:
-        await callback_query.answer(f"❌ Error: {e}", show_alert=True)
+        await callback_query.answer(f"❌ Hata: {e}", show_alert=True)
 
 
 
@@ -168,7 +167,7 @@ def get_readable_time(seconds: int) -> str:
 @app.on_callback_query(filters.regex("ping_status"))
 async def ping_status_callback(client, callback_query: CallbackQuery):
     
-    loading = await callback_query.message.reply_text("🔄 ᴘɪɴɢɪɴɢ...")
+    loading = await callback_query.message.reply_text("🔄 Ping Ölçülüyor...")
 
     start = time.time()
     try:
@@ -385,10 +384,10 @@ async def del_back_playlist(client, CallbackQuery, _):
     elif command == "Skip" or command == "Replay":
         check = db.get(chat_id)
         if not check:
-            return await CallbackQuery.answer("No music in queue!", show_alert=True)
+            return await CallbackQuery.answer("Kuyrukta müzik yok!", show_alert=True)
         
         if command == "Skip":
-            txt = f"➻ sᴛʀᴇᴀᴍ sᴋɪᴩᴩᴇᴅ 🎄\n│ \n└ʙʏ : {mention} 🥀"
+            txt = f"➻ ʏᴀʏıɴ ɢᴇçɪʟᴅɪ 🎄\n│ \n└ʙʏ : {mention} 🥀"
             popped = None
             try:
                 popped = check.pop(0)
@@ -396,7 +395,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                     await auto_clean(popped)
                 if not check:
                     await CallbackQuery.edit_message_text(
-                        f"➻ sᴛʀᴇᴀᴍ sᴋɪᴩᴩᴇᴅ 🎄\n│ \n└ʙʏ : {mention} 🥀"
+                        f"➻ ʏᴀʏıɴ ɢᴇçɪʟᴅɪ 🎄\n│ \n└ʙʏ : {mention} 🥀"
                     )
                     await CallbackQuery.message.reply_text(
                         text=_["admin_6"].format(
@@ -411,7 +410,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             except:
                 try:
                     await CallbackQuery.edit_message_text(
-                        f"➻ sᴛʀᴇᴀᴍ sᴋɪᴩᴩᴇᴅ 🎄\n│ \n└ʙʏ : {mention} 🥀"
+                        f"➻ ʏᴀʏıɴ ɢᴇçɪʟᴅɪ 🎄\n│ \n└ʙʏ : {mention} 🥀"
                     )
                     await CallbackQuery.message.reply_text(
                         text=_["admin_6"].format(
@@ -423,7 +422,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                 except:
                     return
         else:
-            txt = f"➻ sᴛʀᴇᴀᴍ ʀᴇ-ᴘʟᴀʏᴇᴅ 🎄\n│ \n└ʙʏ : {mention} 🥀"
+            txt = f"➻ aᴋış ᴛᴇᴋʀᴀʀ ᴏʏɴᴀᴛıʟᴅı 🎄\n│ \n└ʙʏ : {mention} 🥀"
         
         await CallbackQuery.answer()
         
