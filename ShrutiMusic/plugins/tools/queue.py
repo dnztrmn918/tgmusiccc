@@ -58,7 +58,7 @@ def get_duration(playing):
 
 
 @app.on_message(
-    filters.command(["queue", "cqueue", "player", "cplayer", "playing", "cplaying"])
+    filters.command(["queue", "cqueue", "player", "cplayer", "playing", "cplaying", "list", "kuyruk"])
     & filters.group
     & ~BANNED_USERS
 )
@@ -178,7 +178,7 @@ async def queued_tracks(client, CallbackQuery: CallbackQuery, _):
     basic[videoid] = False
     buttons = queue_back_markup(_, what)
     med = InputMediaPhoto(
-        media="https://telegra.ph//file/6f7d35131f69951c74ee5.jpg",
+        media="https://imgur.com/a/6x1YAMK",
         caption=_["queue_1"],
     )
     await CallbackQuery.edit_message_media(media=med)
@@ -187,11 +187,11 @@ async def queued_tracks(client, CallbackQuery: CallbackQuery, _):
     for x in got:
         j += 1
         if j == 1:
-            msg += f'Streaming :\n\n✨ Title : {x["title"]}\nDuration : {x["dur"]}\nBy : {x["by"]}\n\n'
+            msg += f'Akış :\n\n✨ Başlık : {x["title"]}\Süre : {x["dur"]}\nBy : {x["by"]}\n\n'
         elif j == 2:
-            msg += f'Queued :\n\n✨ Title : {x["title"]}\nDuration : {x["dur"]}\nBy : {x["by"]}\n\n'
+            msg += f'kuyruğa alınmış :\n\n✨ Başlık : {x["title"]}\Süre : {x["dur"]}\nBy : {x["by"]}\n\n'
         else:
-            msg += f'✨ Title : {x["title"]}\nDuration : {x["dur"]}\nBy : {x["by"]}\n\n'
+            msg += f'✨ Başlık : {x["title"]}\Süre : {x["dur"]}\nBy : {x["by"]}\n\n'
     if "Queued" in msg:
         if len(msg) < 700:
             await asyncio.sleep(1)
@@ -289,12 +289,3 @@ async def queue_back(client, CallbackQuery: CallbackQuery, _):
                     break
         except:
             return
-
-
-# ©️ Copyright Reserved - @NoxxOP  Nand Yaduwanshi
-
-# ===========================================
-# ©️ 2025 Nand Yaduwanshi (aka @NoxxOP)
-# 🔗 GitHub : https://github.com/NoxxOP/ShrutiMusic
-# 📢 Telegram Channel : https://t.me/ShrutiBots
-# ===========================================
