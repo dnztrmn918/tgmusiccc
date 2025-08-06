@@ -95,7 +95,7 @@ async def stag(_, message: Message):
     await tag_users(chat_id, MESSAGES["stag"], "Sohbete Çağırma")
 
 # ETİKETLEMEYİ DURDURMA KOMUTU (stoptag)
-@app.on_message(filters.command("stoptag") & filters.group)
+@app.on_message(filters.command("stoptag", "cancel") & filters.group)
 async def stoptag(_, message: Message):
     chat_id = message.chat.id
     if chat_id in active_chats:
