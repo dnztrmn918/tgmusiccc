@@ -72,7 +72,7 @@ EMOJI = [
 ]
 
 def clean_text(text):
-    """Escape markdown special characters"""
+    """Biçimlendirme dili özel karakterlerinden kaç"""
     if not text:
         return ""
     return re.sub(r'([_*()~`>#+-=|{}.!])', r'\\1', text)
@@ -129,7 +129,7 @@ async def process_members(chat_id, members, text=None, replied=None):
             except FloodWait as e:
                 await asyncio.sleep(e.value + 2)  # Extra buffer time
             except Exception as e:
-                await app.send_message(chat_id, f"Error while tagging: {str(e)}")
+                await app.send_message(chat_id, f"Etiketleme yapılırken hata oluştu: {str(e)}")
                 continue
     
     if usernum > 0 and chat_id in SPAM_CHATS:
@@ -148,7 +148,7 @@ async def process_members(chat_id, members, text=None, replied=None):
                     parse_mode=ParseMode.MARKDOWN
                 )
         except Exception as e:
-            await app.send_message(chat_id, f"Error sending final batch: {str(e)}")
+            await app.send_message(chat_id, f"Son partiyi (veri kümesini) gönderirken hata oluştu: {str(e)}")
     
     return tagged_members
 
@@ -158,17 +158,17 @@ async def process_members(chat_id, members, text=None, replied=None):
 async def tag_all_users(_, message):
     admin = await is_admin(message.chat.id, message.from_user.id)
     if not admin:
-        return await message.reply_text("Only admins can use this command.")
+        return await message.reply_text("Sadece yöneticiler bu komutu kullanabilir.")
 
     if message.chat.id in SPAM_CHATS:  
         return await message.reply_text(  
-            "Tagging process is already running. Use /cancel to stop it."  
+            "Etiketleme işlemi zaten devam ediyor. Durdurmak için /cancel komutunu kullanın.."  
         )  
     
     replied = message.reply_to_message  
     if len(message.command) < 2 and not replied:  
         return await message.reply_text(  
-            "Give some text to tag all, like: `@all Hi Friends`"  
+            "Herkesi etiketlemek için şu gibi bir metin ver: @all Merhaba Arkadaşlar`"  
         )  
     
     try:  
@@ -192,17 +192,17 @@ async def tag_all_users(_, message):
         )
         
         summary_msg = f"""
-✅ Tagging completed!
+✅ Etiketleme tamamlandı!
 
-Total members: {total_members}
-Tagged members: {tagged_members}
+Toplam Kullanıcı: {total_members}
+Etiketlenen Kullanıcı: {tagged_members}
 """
         await app.send_message(message.chat.id, summary_msg)
 
     except FloodWait as e:  
         await asyncio.sleep(e.value)  
     except Exception as e:  
-        await app.send_message(message.chat.id, f"An error occurred: {str(e)}")  
+        await app.send_message(message.chat.id, f"Bir hata oluştu: {str(e)}")  
     finally:  
         try:  
             SPAM_CHATS.remove(message.chat.id)  
@@ -218,17 +218,17 @@ async def tag_all_admins(_, message):
 
     admin = await is_admin(message.chat.id, message.from_user.id)  
     if not admin:  
-        return await message.reply_text("Only admins can use this command.")  
+        return await message.reply_text("Sadece yöneticiler bu komutu kullanabilir.")  
 
     if message.chat.id in SPAM_CHATS:  
         return await message.reply_text(  
-            "Tagging process is already running. Use /cancel to stop it."  
+            "Etiketleme işlemi zaten devam ediyor. Durdurmak için /cancel komutunu kullanın."  
         )  
     
     replied = message.reply_to_message  
     if len(message.command) < 2 and not replied:  
         return await message.reply_text(  
-            "Give some text to tag admins, like: `@admins Hi Friends`"  
+            "Yöneticileri etiketlemek için şöyle bir metin kullanabilirsiniz:@admins Merhaba Arkadaşlar`"  
         )  
     
     try:  
@@ -254,17 +254,17 @@ async def tag_all_admins(_, message):
         )
         
         summary_msg = f"""
-✅ Admin tagging completed!
+✅ Admin Etiketleme Tamamlandı
 
-Total admins: {total_admins}
-Tagged admins: {tagged_admins}
+Toplam Yönetici: {total_admins}
+Etiketlenen Yöneticiler: {tagged_admins}
 """
         await app.send_message(message.chat.id, summary_msg)
 
     except FloodWait as e:  
         await asyncio.sleep(e.value)  
     except Exception as e:  
-        await app.send_message(message.chat.id, f"An error occurred: {str(e)}")  
+        await app.send_message(message.chat.id, f"Bir Hata Oluştu: {str(e)}")  
     finally:  
         try:  
             SPAM_CHATS.remove(message.chat.id)  
@@ -288,39 +288,30 @@ async def cancelcmd(_, message):
     chat_id = message.chat.id
     admin = await is_admin(chat_id, message.from_user.id)
     if not admin:
-        return await message.reply_text("Only admins can use this command.")
+        return await message.reply_text("Sadece yöneticiler bu komutu kullanabilir.")
 
     if chat_id in SPAM_CHATS:  
         try:  
             SPAM_CHATS.remove(chat_id)  
         except Exception:  
             pass  
-        return await message.reply_text("Tagging process successfully stopped!")  
+        return await message.reply_text("Etiketleme işlemi başarıyla durduruldu!")  
     else:  
-        return await message.reply_text("No tagging process is currently running!")
+        return await message.reply_text("Şu anda herhangi bir etiketleme işlemi yürütülmüyor!")
 
 MODULE = "Tᴀɢᴀʟʟ"
 HELP = """
-@all or /all | /tagall or @tagall | /mentionall or @mentionall [text] or [reply to any message] - Tag all users in your group with random emojis (changes every 5 users)
+@all veya /all | /tagall veya @tagall | /mentionall veya @mentionall [metin] veya [mesajı yanıtla] - Grubundaki tüm kullanıcıları rastgele emojilerle etiketle (her 5 kullanıcıda emoji değişir).
 
-/admintag or @admintag | /adminmention or @adminmention | /admins or @admins [text] or [reply to any message] - Tag all admins in your group with random emojis (changes every 5 users)
+/admintag veya @admintag | /adminmention veya @adminmention | /admins veya @admins [metin] veya [herhangi bir mesaja yanıt] - Grubundaki tüm yöneticileri rastgele emojilerle etiketle (her 5 kullanıcıda emoji değişir)
 
-/stopmention or @stopmention | /cancel or @cancel | /offmention or @offmention | /mentionoff or @mentionoff | /cancelall or @cancelall - Stop any running tagging process
+/stopmention veya @stopmention | /cancel veya @cancel | /offmention veya @offmention | /mentionoff veya @mentionoff | /cancelall veya @cancelall - Çalışan herhangi bir etiketleme sürecini durdur
 
-Note:
+Not:
 
-1. These commands can only be used by admins
-2. The bot and assistant must be admins in your group
-3. Users will be tagged with random emojis that link to their profiles
-4. After completion, you'll get a summary with counts
-5. Tags 5 users at a time with unique emoji sequence for each batch
+1. Bu komutları yalnızca yöneticiler kullanabilir.
+2. Bot ve asistanınızın grubunuzda yönetici olması gerekir.
+3. Kullanıcılar, profillerine bağlantılı rastgele emojilerle etiketlenecektir.
+4. İşlem tamamlandıktan sonra, etiketleme sayılarıyla birlikte bir özet alırsınız.
+5. Her seferinde 5 kullanıcı etiketlenir ve her grup için benzersiz bir emoji dizisi kullanılır.
 """
-
-
-# ©️ Copyright Reserved - @NoxxOP  Nand Yaduwanshi
-
-# ===========================================
-# ©️ 2025 Nand Yaduwanshi (aka @NoxxOP)
-# 🔗 GitHub : https://github.com/NoxxOP/ShrutiMusic
-# 📢 Telegram Channel : https://t.me/ShrutiBots
-# ===========================================
