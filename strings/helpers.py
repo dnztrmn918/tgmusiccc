@@ -20,297 +20,279 @@
 # Email: badboy809075@gmail.com
 
 
-HELP_1 = """<b><u>ᴀᴅᴍɪɴ ᴄᴏᴍᴍᴀɴᴅs :</b></u>
+HELP_1 = """<b><u>👮‍♂️ YÖNETİCİ KOMUTLARI :</b></u>
 
-ᴊᴜsᴛ ᴀᴅᴅ <b>ᴄ</b> ɪɴ ᴛʜᴇ sᴛᴀʀᴛɪɴɢ ᴏғ ᴛʜᴇ ᴄᴏᴍᴍᴀɴᴅs ᴛᴏ ᴜsᴇ ᴛʜᴇᴍ ғᴏʀ ᴄʜᴀɴɴᴇʟ.
+Komutları kanal için kullanmak istiyorsanız başına <b>c</b> ekleyin.
 
-
-/pause : ᴩᴀᴜsᴇ ᴛʜᴇ ᴄᴜʀʀᴇɴᴛ ᴩʟᴀʏɪɴɢ sᴛʀᴇᴀᴍ.
-
-/resume : ʀᴇsᴜᴍᴇ ᴛʜᴇ ᴩᴀᴜsᴇᴅ sᴛʀᴇᴀᴍ.
-
-/skip : sᴋɪᴩ ᴛʜᴇ ᴄᴜʀʀᴇɴᴛ ᴩʟᴀʏɪɴɢ sᴛʀᴇᴀᴍ ᴀɴᴅ sᴛᴀʀᴛ sᴛʀᴇᴀᴍɪɴɢ ᴛʜᴇ ɴᴇxᴛ ᴛʀᴀᴄᴋ ɪɴ ǫᴜᴇᴜᴇ.
-
-/end ᴏʀ /stop : ᴄʟᴇᴀʀs ᴛʜᴇ ǫᴜᴇᴜᴇ ᴀɴᴅ ᴇɴᴅ ᴛʜᴇ ᴄᴜʀʀᴇɴᴛ ᴩʟᴀʏɪɴɢ sᴛʀᴇᴀᴍ.
-
-/player : ɢᴇᴛ ᴀ ɪɴᴛᴇʀᴀᴄᴛɪᴠᴇ ᴩʟᴀʏᴇʀ ᴩᴀɴᴇʟ.
-
-/queue : sʜᴏᴡs ᴛʜᴇ ǫᴜᴇᴜᴇᴅ ᴛʀᴀᴄᴋs ʟɪsᴛ.
+/play /oynat : Müzik veya video oynatır.
+/pause /duraklat : Geçerli yayını duraklatır.
+/resume /devam : Duraklatılan yayını devam ettirir.
+/skip /geç : Geçerli yayını atlar, sıradaki parçayı çalar.
+/end /stop /bitir /durdur : Kuyruğu temizler ve yayını sonlandırır.
+/player /panel : Etkileşimli oynatma paneli gösterir.
+/queue /list /liste : Kuyruktaki parçaların listesini gösterir.
 """
 
 HELP_2 = """
-<b><u>ᴀᴜᴛʜ ᴜsᴇʀs :</b></u>
+<b><u>👤 YETKİLİ KULLANICILAR (AUTH USERS) :</b></u>
 
-ᴀᴜᴛʜ ᴜsᴇʀs ᴄᴀɴ ᴜsᴇ ᴀᴅᴍɪɴ ʀɪɢʜᴛs ɪɴ ᴛʜᴇ ʙᴏᴛ ᴡɪᴛʜᴏᴜᴛ ᴀᴅᴍɪɴ ʀɪɢʜᴛs ɪɴ ᴛʜᴇ ᴄʜᴀᴛ.
+Yetkili kullanıcılar, sohbette yönetici olmadan botun yönetici komutlarını kullanabilirler.
 
-/auth [ᴜsᴇʀɴᴀᴍᴇ/ᴜsᴇʀ_ɪᴅ] : ᴀᴅᴅ ᴀ ᴜsᴇʀ ᴛᴏ ᴀᴜᴛʜ ʟɪsᴛ ᴏғ ᴛʜᴇ ʙᴏᴛ.
-/unauth [ᴜsᴇʀɴᴀᴍᴇ/ᴜsᴇʀ_ɪᴅ] : ʀᴇᴍᴏᴠᴇ ᴀ ᴀᴜᴛʜ ᴜsᴇʀs ғʀᴏᴍ ᴛʜᴇ ᴀᴜᴛʜ ᴜsᴇʀs ʟɪsᴛ.
-/authusers : sʜᴏᴡs ᴛʜᴇ ʟɪsᴛ ᴏғ ᴀᴜᴛʜ ᴜsᴇʀs ᴏғ ᴛʜᴇ ɢʀᴏᴜᴩ.
+/auth [kullanıcı_adı veya kullanıcı_id] : Bir kullanıcıyı botun yetkili listesine ekler.
+/unauth [kullanıcı_adı veya kullanıcı_id] : Kullanıcıyı yetkili listesinden kaldırır.
+/authusers : Grubun yetkili kullanıcılarını listeler.
 """
 
 HELP_3 = """
-<u><b>ʙʀᴏᴀᴅᴄᴀsᴛ ғᴇᴀᴛᴜʀᴇ</b></u> [ᴏɴʟʏ ғᴏʀ sᴜᴅᴏᴇʀs] :
+<u><b>ʏᴀʏɪɴʟᴀ ᴏ̈ᴢᴇʟʟɪɢ̆ɪ</b></u> [sᴀᴅᴇᴄᴇ sᴜᴅᴏ ᴋᴜʟʟᴀɴɪᴄɪʟᴀʀɪ ɪᴄ̧ɪɴ] :
 
-/broadcast [ᴍᴇssᴀɢᴇ ᴏʀ ʀᴇᴩʟʏ ᴛᴏ ᴀ ᴍᴇssᴀɢᴇ] : ʙʀᴏᴀᴅᴄᴀsᴛ ᴀ ᴍᴇssᴀɢᴇ ᴛᴏ sᴇʀᴠᴇᴅ ᴄʜᴀᴛs ᴏғ ᴛʜᴇ ʙᴏᴛ.
+/broadcast [ᴍᴇsᴀᴊ ᴠᴇʏᴀ ʙɪʀ ᴍᴇsᴀᴊᴀ ᴄᴇᴠᴀᴘ] : ʙᴏᴛᴜɴ ʜɪᴢᴍᴇᴛ ᴠᴇʀᴅɪɢ̆ɪ sᴏʜʙᴇᴛʟᴇʀᴇ ᴍᴇsᴀᴊ ʏᴀʏɪɴʟᴀʀ.
 
-<u>ʙʀᴏᴀᴅᴄᴀsᴛɪɴɢ ᴍᴏᴅᴇs :</u>
-<b>-pin</b> : ᴩɪɴs ʏᴏᴜʀ ʙʀᴏᴀᴅᴄᴀsᴛᴇᴅ ᴍᴇssᴀɢᴇs ɪɴ sᴇʀᴠᴇᴅ ᴄʜᴀᴛs.
-<b>-pinloud</b> : ᴩɪɴs ʏᴏᴜʀ ʙʀᴏᴀᴅᴄᴀsᴛᴇᴅ ᴍᴇssᴀɢᴇ ɪɴ sᴇʀᴠᴇᴅ ᴄʜᴀᴛs ᴀɴᴅ sᴇɴᴅ ɴᴏᴛɪғɪᴄᴀᴛɪᴏɴ ᴛᴏ ᴛʜᴇ ᴍᴇᴍʙᴇʀs.
-<b>-user</b> : ʙʀᴏᴀᴅᴄᴀsᴛs ᴛʜᴇ ᴍᴇssᴀɢᴇ ᴛᴏ ᴛʜᴇ ᴜsᴇʀs ᴡʜᴏ ʜᴀᴠᴇ sᴛᴀʀᴛᴇᴅ ʏᴏᴜʀ ʙᴏᴛ.
-<b>-assistant</b> : ʙʀᴏᴀᴅᴄᴀsᴛ ʏᴏᴜʀ ᴍᴇssᴀɢᴇ ғʀᴏᴍ ᴛʜᴇ ᴀssɪᴛᴀɴᴛ ᴀᴄᴄᴏᴜɴᴛ ᴏғ ᴛʜᴇ ʙᴏᴛ.
-<b>-nobot</b> : ғᴏʀᴄᴇs ᴛʜᴇ ʙᴏᴛ ᴛᴏ ɴᴏᴛ ʙʀᴏᴀᴅᴄᴀsᴛ ᴛʜᴇ ᴍᴇssᴀɢᴇ..
+<u>ʏᴀʏɪɴʟᴀ ᴍᴏᴅʟᴀʀɪ :</u>
+<b>-pin</b> : ʏᴀʏɪɴʟᴀɴᴀɴ ᴍᴇsᴀᴊʟᴀʀɪɴɪᴢɪ sᴏʜʙᴇᴛʟᴇʀᴅᴇ sᴀʙɪᴛʟᴇʀ.
+<b>-pinloud</b> : ʏᴀʏɪɴʟᴀɴᴀɴ ᴍᴇsᴀᴊɪ sᴀʙɪᴛʟᴇʀ ᴠᴇ ᴜʏᴇʟᴇʀᴇ ʙɪʟᴅɪʀɪᴍ ɢᴏ̈ɴᴅᴇʀɪʀ.
+<b>-user</b> : ʙᴏᴛᴜɴᴜᴢᴜ ʙᴀşʟᴀᴛᴀɴ ᴋᴜʟʟᴀɴɪᴄɪʟᴀʀᴀ ᴍᴇsᴀᴊ ʏᴀʏɪɴʟᴀʀ.
+<b>-assistant</b> : ʙᴏᴛᴜɴ ᴀsɪsᴛᴀɴ ʜᴇsᴀʙɪɴᴅᴀɴ ᴍᴇsᴀᴊ ʏᴀʏɪɴʟᴀʀ.
+<b>-nobot</b> : ʙᴏᴛᴜɴ ᴍᴇsᴀᴊ ʏᴀʏɪɴʟᴀᴍᴀsɪɴɪ ᴢᴏʀʟᴀ ᴇɴɢᴇʟʟᴇʀ.
 
-<b>ᴇxᴀᴍᴩʟᴇ:</b> <code>/broadcast -user -assistant -pin ᴛᴇsᴛɪɴɢ ʙʀᴏᴀᴅᴄᴀsᴛ</code>
+<b>ᴏ̈ʀɴᴇᴋ:</b> <code>/broadcast -user -assistant -pin ʏᴀʏɪɴ ᴅᴇɴᴇᴍᴇsɪ</code>
 """
 
-HELP_4 = """<u><b>ᴄʜᴀᴛ ʙʟᴀᴄᴋʟɪsᴛ ғᴇᴀᴛᴜʀᴇ :</b></u> [ᴏɴʟʏ ғᴏʀ sᴜᴅᴏᴇʀs]
+HELP_4 = """<u><b>ᴄʜᴀᴛ ᴋᴀʀᴀ ʟɪsᴛᴇ ᴏ̈ᴢᴇʟʟɪɢ̆ɪ :</b></u> [sᴀᴅᴇᴄᴇ sᴜᴅᴏ ᴋᴜʟʟᴀɴɪᴄɪʟᴀʀɪ ɪᴄ̧ɪɴ]
 
-ʀᴇsᴛʀɪᴄᴛ sʜɪᴛ ᴄʜᴀᴛs ᴛᴏ ᴜsᴇ ᴏᴜʀ ᴘʀᴇᴄɪᴏᴜs ʙᴏᴛ.
+ɢᴇʀᴇᴋsɪᴢ sᴏʜʙᴇᴛʟᴇʀɪ ᴋɪᴍᴇᴛʟɪ ʙᴏᴛᴜᴍᴜᴢᴅᴀɴ ᴜᴢᴀᴋ ᴛᴜᴛᴜɴ.
 
-/blacklistchat [ᴄʜᴀᴛ ɪᴅ] : ʙʟᴀᴄᴋʟɪsᴛ ᴀ ᴄʜᴀᴛ ғʀᴏᴍ ᴜsɪɴɢ ᴛʜᴇ ʙᴏᴛ.
-/whitelistchat [ᴄʜᴀᴛ ɪᴅ] : ᴡʜɪᴛᴇʟɪsᴛ ᴛʜᴇ ʙʟᴀᴄᴋʟɪsᴛᴇᴅ ᴄʜᴀᴛ.
-/blacklistedchat : sʜᴏᴡs ᴛʜᴇ ʟɪsᴛ ᴏғ ʙʟᴀᴄᴋʟɪsᴛᴇᴅ ᴄʜᴀᴛs.
+/blacklistchat [sᴏʜʙᴇᴛ ɪᴅ] : ʙɪʀ sᴏʜʙᴇᴛɪ ʙᴏᴛᴜ ᴋᴜʟʟᴀɴᴀᴍᴀᴢ ʜᴀʟᴇ ɢᴇᴛɪʀɪʀ.
+/whitelistchat [sᴏʜʙᴇᴛ ɪᴅ] : ᴋᴀʀᴀ ʟɪsᴛᴇʏᴇ ᴀʟɪɴᴍɪş sᴏʜʙᴇᴛɪ ʙᴇʏᴀᴢ ʟɪsᴛᴇʏᴇ ᴇᴋʟᴇʀ.
+/blacklistedchat : ᴋᴀʀᴀ ʟɪsᴛᴇʏᴇ ᴀʟɪɴᴀɴ sᴏʜʙᴇᴛʟᴇʀɪɴ ʟɪsᴛᴇsɪɴɪ ɢᴏ̈sᴛᴇʀɪʀ.
 """
 
 HELP_5 = """
-<u><b>ʙʟᴏᴄᴋ ᴜsᴇʀs:</b></u> [ᴏɴʟʏ ғᴏʀ sᴜᴅᴏᴇʀs]
+<u><b>ᴋᴜʟʟᴀɴɪᴄɪʟᴀʀɪ ᴇɴɢᴇʟʟᴇ:</b></u> [sᴀᴅᴇᴄᴇ sᴜᴅᴏ ᴋᴜʟʟᴀɴɪᴄɪʟᴀʀɪ ɪᴄ̧ɪɴ]
 
-sᴛᴀʀᴛs ɪɢɴᴏʀɪɴɢ ᴛʜᴇ ʙʟᴀᴄᴋʟɪsᴛᴇᴅ ᴜsᴇʀ, sᴏ ᴛʜᴀᴛ ʜᴇ ᴄᴀɴ'ᴛ ᴜsᴇ ʙᴏᴛ ᴄᴏᴍᴍᴀɴᴅs.
+ᴋᴀʀᴀ ʟɪsᴛᴇʏᴇ ᴀʟɪɴᴀɴ ᴋᴜʟʟᴀɴɪᴄɪʏɪ ʏᴏᴋ sᴀʏᴀʀ ᴠᴇ ʙᴏᴛ ᴋᴏᴍᴜᴛʟᴀʀɪɴɪ ᴋᴜʟʟᴀɴᴀᴍᴀᴢ.
 
-/block [ᴜsᴇʀɴᴀᴍᴇ ᴏʀ ʀᴇᴩʟʏ ᴛᴏ ᴀ ᴜsᴇʀ] : ʙʟᴏᴄᴋ ᴛʜᴇ ᴜsᴇʀ ғʀᴏᴍ ᴏᴜʀ ʙᴏᴛ.
-/unblock [ᴜsᴇʀɴᴀᴍᴇ ᴏʀ ʀᴇᴩʟʏ ᴛᴏ ᴀ ᴜsᴇʀ] : ᴜɴʙʟᴏᴄᴋs ᴛʜᴇ ʙʟᴏᴄᴋᴇᴅ ᴜsᴇʀ.
-/blockedusers : sʜᴏᴡs ᴛʜᴇ ʟɪsᴛ ᴏғ ʙʟᴏᴄᴋᴇᴅ ᴜsᴇʀs.
+/block [ᴋᴜʟʟᴀɴɪᴄɪ ᴀᴅɪ ᴠᴇʏᴀ ʙɪʀ ᴋᴜʟʟᴀɴɪᴄɪʏᴀ ʏᴀɴɪᴛ] : ᴋᴜʟʟᴀɴɪᴄɪʏɪ ʙᴏᴛᴜᴍᴜᴢᴅᴀɴ ᴇɴɢᴇʟʟᴇʀ.
+/unblock [ᴋᴜʟʟᴀɴɪᴄɪ ᴀᴅɪ ᴠᴇʏᴀ ʙɪʀ ᴋᴜʟʟᴀɴɪᴄɪʏᴀ ʏᴀɴɪᴛ] : ᴇɴɢᴇʟʟɪ ᴋᴜʟʟᴀɴɪᴄɪɴɪɴ ᴇɴɢᴇʟɪɴɪ ᴋᴀʟᴅɪʀɪʀ.
+/blockedusers : ᴇɴɢᴇʟʟɪ ᴋᴜʟʟᴀɴɪᴄɪʟᴀʀɪɴ ʟɪsᴛᴇsɪɴɪ ɢᴏ̈sᴛᴇʀɪʀ.
 """
-
 HELP_6 = """
-<u><b>ᴄʜᴀɴɴᴇʟ ᴩʟᴀʏ ᴄᴏᴍᴍᴀɴᴅs:</b></u>
+<u><b>ᴋᴀɴᴀʟ ᴏʏɴᴀᴛᴍᴀ ᴋᴏᴍᴜᴛʟᴀʀɪ:</b></u>
 
-ʏᴏᴜ ᴄᴀɴ sᴛʀᴇᴀᴍ ᴀᴜᴅɪᴏ/ᴠɪᴅᴇᴏ ɪɴ ᴄʜᴀɴɴᴇʟ.
+ᴋᴀɴᴀʟᴅᴀ sᴇs/vɪᴅᴇᴏ ʏᴀʏıɴʟᴀʏᴀʙɪʟɪʀsɪɴɪᴢ.
 
-/cplay : sᴛᴀʀᴛs sᴛʀᴇᴀᴍɪɴɢ ᴛʜᴇ ʀᴇǫᴜᴇsᴛᴇᴅ ᴀᴜᴅɪᴏ ᴛʀᴀᴄᴋ ᴏɴ ᴄʜᴀɴɴᴇʟ's ᴠɪᴅᴇᴏᴄʜᴀᴛ.
-/cvplay : sᴛᴀʀᴛs sᴛʀᴇᴀᴍɪɴɢ ᴛʜᴇ ʀᴇǫᴜᴇsᴛᴇᴅ ᴠɪᴅᴇᴏ ᴛʀᴀᴄᴋ ᴏɴ ᴄʜᴀɴɴᴇʟ's ᴠɪᴅᴇᴏᴄʜᴀᴛ.
-/cplayforce or /cvplayforce : sᴛᴏᴩs ᴛʜᴇ ᴏɴɢᴏɪɴɢ sᴛʀᴇᴀᴍ ᴀɴᴅ sᴛᴀʀᴛs sᴛʀᴇᴀᴍɪɴɢ ᴛʜᴇ ʀᴇǫᴜᴇsᴛᴇᴅ ᴛʀᴀᴄᴋ.
+/cplay : ɪsᴛᴇɴᴇɴ sᴇs ᴘᴀʀᴄ̧ᴀsıɴı ᴋᴀɴᴀʟıɴ sᴇsʟɪ sᴏʜʙᴇᴛɪɴᴅᴇ ʏᴀʏıɴʟᴀᴍᴀʏᴀ ʙᴀşʟᴀʀ.
+/cvplay : ɪsᴛᴇɴᴇɴ ᴠɪᴅᴇᴏ ᴘᴀʀᴄ̧ᴀsıɴı ᴋᴀɴᴀʟıɴ sᴇsʟɪ sᴏʜʙᴇᴛɪɴᴅᴇ ʏᴀʏıɴʟᴀᴍᴀʏᴀ ʙᴀşʟᴀʀ.
+/cplayforce veya /cvplayforce : ᴅᴇᴠᴀᴍ ᴇᴅᴇɴ ʏᴀʏıɴı ᴅᴜʀᴅᴜʀᴜʀ ᴠᴇ ɪsᴛᴇɴᴇɴ ᴘᴀʀᴄ̧ᴀʏı ʏᴀʏıɴʟᴀᴍᴀʏᴀ ʙᴀşʟᴀʀ.
 
-/channelplay [ᴄʜᴀᴛ ᴜsᴇʀɴᴀᴍᴇ ᴏʀ ɪᴅ] ᴏʀ [ᴅɪsᴀʙʟᴇ] : ᴄᴏɴɴᴇᴄᴛ ᴄʜᴀɴɴᴇʟ ᴛᴏ ᴀ ɢʀᴏᴜᴩ ᴀɴᴅ sᴛᴀʀᴛs sᴛʀᴇᴀᴍɪɴɢ ᴛʀᴀᴄᴋs ʙʏ ᴛʜᴇ ʜᴇʟᴩ ᴏғ ᴄᴏᴍᴍᴀɴᴅs sᴇɴᴛ ɪɴ ɢʀᴏᴜᴩ.
+/channelplay [ᴋᴀɴᴀʟ ᴋᴜʟʟᴀɴıᴄı ᴀᴅı ᴠᴇʏᴀ ɪᴅ] ᴠᴇʏᴀ [ᴋᴀᴘᴀᴛ] : ʙɪʀ ᴋᴀɴᴀʟı ʙɪʀ ɢʀᴜʙᴀ ʙᴀɢ̆ʟᴀʀ ᴠᴇ ɢʀᴜᴘᴛᴀ ɢᴏ̈ɴᴅᴇʀɪʟᴇɴ ᴋᴏᴍᴜᴛʟᴀʀ ᴀʀᴀᴄ̧ıʟıɢ̆ıʏʟᴀ ᴘᴀʀᴄ̧ᴀʟᴀʀı ʏᴀʏıɴʟᴀᴍᴀʏᴀ ʙᴀşʟᴀʀ.
 """
 
 HELP_7 = """
-<u><b>ɢʟᴏʙᴀʟ ʙᴀɴ ғᴇᴀᴛᴜʀᴇ</b></u> [ᴏɴʟʏ ғᴏʀ sᴜᴅᴏᴇʀs] :
+<u><b>ɢʟᴏʙᴀʟ ʏᴀsᴀᴋʟᴀᴍᴀ ᴏ̈ᴢᴇʟʟɪɢ̆ɪ</b></u> [sᴀᴅᴇᴄᴇ sᴜᴅᴏ ᴋᴜʟʟᴀɴıᴄıʟᴀʀ ɪᴄ̧ɪɴ] :
 
-/gban [ᴜsᴇʀɴᴀᴍᴇ ᴏʀ ʀᴇᴩʟʏ ᴛᴏ ᴀ ᴜsᴇʀ] : ɢʟᴏʙᴀʟʟʏ ʙᴀɴs ᴛʜᴇ ᴄʜᴜᴛɪʏᴀ ғʀᴏᴍ ᴀʟʟ ᴛʜᴇ sᴇʀᴠᴇᴅ ᴄʜᴀᴛs ᴀɴᴅ ʙʟᴀᴄᴋʟɪsᴛ ʜɪᴍ ғʀᴏᴍ ᴜsɪɴɢ ᴛʜᴇ ʙᴏᴛ.
-/ungban [ᴜsᴇʀɴᴀᴍᴇ ᴏʀ ʀᴇᴩʟʏ ᴛᴏ ᴀ ᴜsᴇʀ] : ɢʟᴏʙᴀʟʟʏ ᴜɴʙᴀɴs ᴛʜᴇ ɢʟᴏʙᴀʟʟʏ ʙᴀɴɴᴇᴅ ᴜsᴇʀ.
-/gbannedusers : sʜᴏᴡs ᴛʜᴇ ʟɪsᴛ ᴏғ ɢʟᴏʙᴀʟʟʏ ʙᴀɴɴᴇᴅ ᴜsᴇʀs.
+/gban [ᴋᴜʟʟᴀɴıᴄı ᴀᴅı ᴠᴇʏᴀ ʙɪʀ ᴋᴜʟʟᴀɴıᴄıʏᴀ ʏᴀɴıᴛ] : ᴋᴜʟʟᴀɴıᴄıʏı ᴛᴜ̈ᴍ sᴜɴᴜʟᴀɴ ᴅɪʟᴇʀᴅᴇɴ ɢʟᴏʙᴀʟ ᴏʟᴀʀᴀᴋ ʏᴀsᴀᴋʟᴀʀ ᴠᴇ ʙᴏᴛᴜ ᴋᴜʟʟᴀɴᴍᴀsıɴı ᴇɴɢᴇʟʟᴇʀ.
+/ungban [ᴋᴜʟʟᴀɴıᴄı ᴀᴅı ᴠᴇʏᴀ ʙɪʀ ᴋᴜʟʟᴀɴıᴄıʏᴀ ʏᴀɴıᴛ] : ɢʟᴏʙᴀʟ ʏᴀsᴀᴋʟᴀᴍᴀʏı ᴋᴀʟᴅıʀıʀ.
+/gbannedusers : ɢʟᴏʙᴀʟ ᴏʟᴀʀᴀᴋ ʏᴀsᴀᴋʟᴀɴᴀɴ ᴋᴜʟʟᴀɴıᴄıʟᴀʀıɴ ʟɪsᴛᴇsɪɴɪ ɢᴏ̈sᴛᴇʀɪʀ.
 """
 
 HELP_8 = """
-<b><u>ʟᴏᴏᴘ sᴛʀᴇᴀᴍ :</b></u>
+<b><u>ᴅᴏ̈ɴɢᴜ̈ʟᴜ̈ ᴏʏɴᴀᴛᴍᴀ :</b></u>
 
-<b>sᴛᴀʀᴛs sᴛʀᴇᴀᴍɪɴɢ ᴛʜᴇ ᴏɴɢᴏɪɴɢ sᴛʀᴇᴀᴍ ɪɴ ʟᴏᴏᴘ</b>
+<b>ᴍᴇᴠᴄᴜᴛ ʏᴀʏıɴı ᴅᴏ̈ɴɢᴜ̈ ɪᴄ̧ᴇʀɪsɪɴᴅᴇ ᴛᴇᴋʀᴀʀʟᴀʏᴀʀᴀᴋ ᴏʏɴᴀᴛıʀ</b>
 
-/loop [enable/disable] : ᴇɴᴀʙʟᴇs/ᴅɪsᴀʙʟᴇs ʟᴏᴏᴘ ғᴏʀ ᴛʜᴇ ᴏɴɢᴏɪɴɢ sᴛʀᴇᴀᴍ
-/loop [1, 2, 3, ...] : ᴇɴᴀʙʟᴇs ᴛʜᴇ ʟᴏᴏᴘ ғᴏʀ ᴛʜᴇ ɢɪᴠᴇɴ ᴠᴀʟᴜᴇ.
+/loop [aç/kapat] : ᴍᴇᴠᴄᴜᴛ ʏᴀʏıɴ ɪᴄ̧ɪɴ ᴅᴏ̈ɴɢᴜ̈ʏᴜ̈ ᴀᴄ̧ᴀʀ ᴠᴇʏᴀ ᴋᴀᴘᴀᴛıʀ.
+/loop [1, 2, 3, ...] : ᴠᴇʀɪʟᴇɴ sᴀʏı ᴋᴀᴅᴀʀ ᴅᴏ̈ɴɢᴜ̈ʟᴜ̈ ᴏʏɴᴀᴛᴍᴀʏı ᴀᴄ̧ᴀʀ.
 """
-
 HELP_9 = """
-<u><b>ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ ᴍᴏᴅᴇ</b></u> [ᴏɴʟʏ ғᴏʀ sᴜᴅᴏᴇʀs] :
+<u><b>ʙᴀᴋıᴍ ᴍᴏᴅᴜ</b></u> [sᴀᴅᴇᴄᴇ sᴜᴅᴏ ᴋᴜʟʟᴀɴıᴄıʟᴀʀ ɪᴄ̧ɪɴ] :
 
-/logs : ɢᴇᴛ ʟᴏɢs ᴏғ ᴛʜᴇ ʙᴏᴛ.
+/logs : ʙᴏᴛ ɢᴜ̈ɴʟᴜ̈ᴋʟᴇʀɪɴɪ ɢᴏ̈ʀᴛ.
 
-/logger [ᴇɴᴀʙʟᴇ/ᴅɪsᴀʙʟᴇ] : ʙᴏᴛ ᴡɪʟʟ sᴛᴀʀᴛ ʟᴏɢɢɪɴɢ ᴛʜᴇ ᴀᴄᴛɪᴠɪᴛɪᴇs ʜᴀᴩᴩᴇɴ ᴏɴ ʙᴏᴛ.
+/logger [aç/kapat] : ʙᴏᴛᴜɴ ᴜ̈ᴢᴇʀɪɴᴅᴇ ᴏʟᴀɴ ᴛᴜ̈ᴍ ᴘʀᴏsᴇsʟᴇʀɪ ɢᴜ̈ɴʟᴜ̈ᴋʟᴇᴍᴇsɪɴɪ ᴀᴄ̧ᴀʀ ᴠᴇʏᴀ ᴋᴀᴘᴀᴛıʀ.
 
-/maintenance [ᴇɴᴀʙʟᴇ/ᴅɪsᴀʙʟᴇ] : ᴇɴᴀʙʟᴇ ᴏʀ ᴅɪsᴀʙʟᴇ ᴛʜᴇ ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ ᴍᴏᴅᴇ ᴏғ ʏᴏᴜʀ ʙᴏᴛ.
+/maintenance [aç/kapat] : ʙᴏᴛᴜɴ ʙᴀᴋıᴍ ᴍᴏᴅᴜɴᴜ ᴀᴄ̧ᴀʀ ᴠᴇʏᴀ ᴋᴀᴘᴀᴛıʀ.
 """
 
 HELP_10 = """
-<b><u>ᴘɪɴɢ & sᴛᴀᴛs :</b></u>
+<b><u>ᴘɪɴɢ & ɪsᴛᴀᴛɪsᴛɪᴋ :</b></u>
 
-/start : sᴛᴀʀᴛs ᴛʜᴇ ᴍᴜsɪᴄ ʙᴏᴛ.
-/help : ɢᴇᴛ ʜᴇʟᴩ ᴍᴇɴᴜ ᴡɪᴛʜ ᴇxᴩʟᴀɴᴀᴛɪᴏɴ ᴏғ ᴄᴏᴍᴍᴀɴᴅs.
+/start : ᴍᴜ̈ᴢɪᴋ ʙᴏᴛᴜɴᴜ ʙᴀşʟᴀᴛıʀ.
+/help : ᴋᴏᴍᴜᴛʟᴀʀıɴ ᴀᴄ̧ıᴋʟᴀᴍᴀʟᴀʀı ɪʟᴇ ʏᴀʀᴅıᴍ ᴍᴇɴᴜ̈sᴜ̈ɴᴜ ɢᴏ̈sᴛᴇʀɪʀ.
 
-/ping : sʜᴏᴡs ᴛʜᴇ ᴩɪɴɢ ᴀɴᴅ sʏsᴛᴇᴍ sᴛᴀᴛs ᴏғ ᴛʜᴇ ʙᴏᴛ.
+/ping : ʙᴏᴛᴜɴ ᴘɪɴɢ ᴠᴇ sɪsᴛᴇᴍ ɪsᴛᴀᴛɪsᴛɪᴋʟᴇʀɪɴɪ ɢᴏ̈sᴛᴇʀɪʀ.
 
-/stats : sʜᴏᴡs ᴛʜᴇ ᴏᴠᴇʀᴀʟʟ sᴛᴀᴛs ᴏғ ᴛʜᴇ ʙᴏᴛ.
+/stats : ʙᴏᴛᴜɴ ɢᴇɴᴇʟ ɪsᴛᴀᴛɪsᴛɪᴋʟᴇʀɪɴɪ ɢᴏ̈sᴛᴇʀɪʀ.
 """
 
 HELP_11 = """
-<u><b>ᴩʟᴀʏ ᴄᴏᴍᴍᴀɴᴅs :</b></u>
+<u><b>ᴏʏɴᴀᴛᴍᴀ ᴋᴏᴍᴜᴛʟᴀʀɪ :</b></u>
 
-<b>v :</b> sᴛᴀɴᴅs ғᴏʀ ᴠɪᴅᴇᴏ ᴩʟᴀʏ.
-<b>force :</b> sᴛᴀɴᴅs ғᴏʀ ғᴏʀᴄᴇ ᴩʟᴀʏ.
+<b>v :</b> ᴠɪᴅᴇᴏ ᴏʏɴᴀᴛᴍᴀ.
+<b>zorla :</b> ᴍᴇᴠᴄᴜᴛ ᴏʏɴᴀᴛᴍᴀʏɪ ᴅᴜʀᴅᴜʀᴜᴘ ʏᴇɴɪ ɪçᴇʀɪğɪ ʙᴀşʟᴀᴛᴍᴀ.
 
-/play ᴏʀ /vplay : sᴛᴀʀᴛs sᴛʀᴇᴀᴍɪɴɢ ᴛʜᴇ ʀᴇǫᴜᴇsᴛᴇᴅ ᴛʀᴀᴄᴋ ᴏɴ ᴠɪᴅᴇᴏᴄʜᴀᴛ.
+/play veya /oynat veya /vplay : ɪsᴛᴇɴɪʟᴇɴ şᴀʀᴋɪʏɪ veya ᴠɪᴅᴇᴏʏᴜ sᴇsʟɪ sᴏʜʙᴇᴛᴛᴇ ᴏʏɴᴀᴛᴍᴀʏᴀ ʙᴀşʟᴀᴛɪʀ.
 
-/playforce ᴏʀ /vplayforce : sᴛᴏᴩs ᴛʜᴇ ᴏɴɢᴏɪɴɢ sᴛʀᴇᴀᴍ ᴀɴᴅ sᴛᴀʀᴛs sᴛʀᴇᴀᴍɪɴɢ ᴛʜᴇ ʀᴇǫᴜᴇsᴛᴇᴅ ᴛʀᴀᴄᴋ.
+/playforce veya /vplayforce : ᴅᴇᴠᴀᴍ ᴇᴅᴇɴ ᴏʏɴᴀᴛᴍᴀʏɪ ᴅᴜʀᴅᴜʀᴜʀ ᴠᴇ ɪsᴛᴇɴɪʟᴇɴ şᴀʀᴋɪʏɪ veya ᴠɪᴅᴇᴏʏᴜ ᴏʏɴᴀᴛᴍᴀʏᴀ ʙᴀşʟᴀᴛɪʀ.
 """
 
 HELP_12 = """
-<b><u>sʜᴜғғʟᴇ ᴏ̨ᴜᴇᴜᴇ :</b></u>
+<b><u>ᴋᴜʏʀᴜᴋ ᴋᴀʀɪşᴛɪʀᴍᴀ :</b></u>
 
-/shuffle : sʜᴜғғʟᴇ's ᴛʜᴇ ᴏ̨ᴜᴇᴜᴇ.
-/queue : sʜᴏᴡs ᴛʜᴇ sʜᴜғғʟᴇᴅ ᴏ̨ᴜᴇᴜᴇ.
+/shuffle : ᴏʏɴᴀᴛᴍᴀ ᴋᴜʏʀᴜğᴜɴᴅᴀᴋɪ şᴀʀᴋɪʟᴀʀɪ ᴋᴀʀɪşᴛɪʀɪʀ.
+/queue : ᴍᴇᴠᴄᴜᴛ ᴏʏɴᴀᴛᴍᴀ ᴋᴜʏʀᴜğᴜɴᴜ ɢöʀᴛᴇʀ.
 """
 
 HELP_13 = """
-<b><u>sᴇᴇᴋ sᴛʀᴇᴀᴍ :</b></u>
+<b><u>ᴀɴɪɴᴅᴀɴ ᴏʏɴᴀᴛᴍᴀ :</b></u>
 
-/seek [ᴅᴜʀᴀᴛɪᴏɴ ɪɴ sᴇᴄᴏɴᴅs] : sᴇᴇᴋ ᴛʜᴇ sᴛʀᴇᴀᴍ ᴛᴏ ᴛʜᴇ ɢɪᴠᴇɴ ᴅᴜʀᴀᴛɪᴏɴ.
-/seekback [ᴅᴜʀᴀᴛɪᴏɴ ɪɴ sᴇᴄᴏɴᴅs] : ʙᴀᴄᴋᴡᴀʀᴅ sᴇᴇᴋ ᴛʜᴇ sᴛʀᴇᴀᴍ ᴛᴏ ᴛʜᴇ ᴛʜᴇ ɢɪᴠᴇɴ ᴅᴜʀᴀᴛɪᴏɴ.
+/seek [sᴀɴɪʏᴇ] : ᴍᴇᴠᴄᴜᴛ ᴏʏɴᴀᴛᴍᴀʏɪ ᴠᴇʀɪʟᴇɴ sᴀɴɪʏᴇʏᴇ ᴀʟɪʀ.
+/seekback [sᴀɴɪʏᴇ] : ᴍᴇᴠᴄᴜᴛ ᴏʏɴᴀᴛᴍᴀʏɪ ᴠᴇʀɪʟᴇɴ sᴀɴɪʏᴇ ɢᴇʀɪʏᴇ sᴀʀᴀʀ.
 """
 
 HELP_14 = """
-<b><u>sᴏɴɢ ᴅᴏᴡɴʟᴏᴀᴅ</b></u>
+<b><u>şᴀʀᴋı ɪɴᴅɪʀᴍᴇ</b></u>
 
-/song [sᴏɴɢ ɴᴀᴍᴇ/ʏᴛ ᴜʀʟ] : ᴅᴏᴡɴʟᴏᴀᴅ ᴀɴʏ ᴛʀᴀᴄᴋ ғʀᴏᴍ ʏᴏᴜᴛᴜʙᴇ ɪɴ ᴍᴘ3 ᴏʀ ᴍᴘ4 ғᴏʀᴍᴀᴛs.
+/song [şᴀʀᴋı ɪsᴍɪ/ʏᴛ ʟɪɴᴋɪ] : ʏᴏᴜᴛᴜʙᴇ'ᴅᴀɴ ɪsᴛᴇᴅɪğɪɴɪᴢ şᴀʀᴋıʏı MP3 ᴠᴇʏᴀ MP4 ғᴏʀᴍᴀᴛıɴᴅᴀ ɪɴᴅɪʀɪʀ.
 """
 
 HELP_15 = """
-<b><u>sᴘᴇᴇᴅ ᴄᴏᴍᴍᴀɴᴅs :</b></u>
+<b><u>Oynatma Hızı Komutları:</u></b>
 
-ʏᴏᴜ ᴄᴀɴ ᴄᴏɴᴛʀᴏʟ ᴛʜᴇ ᴘʟᴀʏʙᴀᴄᴋ sᴘᴇᴇᴅ ᴏғ ᴛʜᴇ ᴏɴɢᴏɪɴɢ sᴛʀᴇᴀᴍ. [ᴀᴅᴍɪɴs ᴏɴʟʏ]
+Devam eden yayının oynatma hızını kontrol edebilirsiniz. [Yalnızca yöneticiler]
 
-/speed or /playback : ғᴏʀ ᴀᴅᴊᴜsᴛɪɴɢ ᴛʜᴇ ᴀᴜᴅɪᴏ ᴘʟᴀʏʙᴀᴄᴋ sᴘᴇᴇᴅ ɪɴ ɢʀᴏᴜᴘ.
-/cspeed or /cplayback : ғᴏʀ ᴀᴅᴊᴜsᴛɪɴɢ ᴛʜᴇ ᴀᴜᴅɪᴏ ᴘʟᴀʏʙᴀᴄᴋ sᴘᴇᴇᴅ ɪɴ ᴄʜᴀɴɴᴇʟ.
+/speed veya /playback : Grupta ses oynatma hızını ayarlamak için kullanılır.
+/cspeed veya /cplayback : Kanallarda ses oynatma hızını ayarlamak için kullanılır.
 """
 
 HELP_16 = """
-<b><u>ᴘʀɪᴠᴀᴄʏ ᴘᴏʟɪᴄʏ:</b></u>
+<b><u>Gizlilik Politikası:</u></b>
 
-/Privacy : Display the privacy statement for Sarcastic Bot 
+/privacy : Tubidy Bot'un gizlilik politikasını görüntüler.
 """
 
 HELP_17 = """
-<b><u>ɢᴀᴍᴇs</b></u>
+<b><u>Oyun Komutları:</u></b>
 
-/dice : Rᴏʟʟs ᴀ ᴅɪᴄᴇ.
-/ludo : Pʟᴀʏ Lᴜᴅᴏ.
-/dart : Tʜʀᴏᴡs ᴀ ᴅᴀʀᴛ.
-/basket ᴏʀ /basketball : Pʟᴀʏs ʙᴀsᴋᴇᴛʙᴀʟʟ.
-/football : Pʟᴀʏs ғᴏᴏᴛʙᴀʟʟ.
-/slot ᴏʀ /jackpot : Pʟᴀʏs ᴊᴀᴄᴋᴘᴏᴛ.
-/bowling : Pʟᴀʏs ʙᴏᴡʟɪɴɢ.
+/dice : Zar atar.
+/ludo : Ludo oyunu oynar.
+/dart : Dart atar.
+/basket veya /basketball : Basketbol oynar.
+/football : Futbol oynar.
+/slot veya /jackpot : Jackpot oynar.
+/bowling : Bowling oynar.
 """
 
 HELP_18 = """
-<b><u>ᴀᴅᴍɪɴ ᴄᴏᴍᴍᴀɴᴅs</b></u>
-/ban - Ban A User
-/banall - Ban All Users
-/sban - Delete all messages of user that sended in group and ban the user
-/tban - Ban A User For Specific Time
-/unban - Unban A User
-/warn - Warn A User
-/swarn - Delete all the message sended in group and warn the user
-/rmwarns - Remove All Warning of A User
-/warns - Show Warning Of A User
-/kick - Kick A User
-/skick - Delete the replied message kicking its sender
-/purge - Purge Messages
-/purge [n] - Purge "n" number of messages from replied message
-/del - Delete Replied Message
-/promote - Promote A Member
-/fullpromote - Promote A Member With All Rights
-/demote - Demote A Member
-/pin - Pin A Message
-/unpin - unpin a message
-/unpinall - unpinall messages
-/mute - Mute A User
-/tmute - Mute A User For Specific Time
-/unmute - Unmute A User
-/zombies - Ban Deleted Accounts
-/report | @admins | @admin - Report A Message To Admins.
+<b><u>Yönetici Komutları:</u></b>
+
+/ban - Bir kullanıcıyı yasaklar.
+/banall - Tüm kullanıcıları yasaklar.
+/sban - Kullanıcının grupta gönderdiği tüm mesajları siler ve yasaklar.
+/tban - Bir kullanıcıyı belirli süreliğine yasaklar.
+/unban - Yasaklı bir kullanıcıyı serbest bırakır.
+/warn - Bir kullanıcıya uyarı verir.
+/swarn - Kullanıcının tüm mesajlarını siler ve uyarı verir.
+/rmwarns - Bir kullanıcının tüm uyarılarını kaldırır.
+/warns - Bir kullanıcının mevcut uyarılarını gösterir.
+/kick - Bir kullanıcıyı gruptan atar.
+/skick - Yanıt verilen mesajı siler ve göndereni gruptan atar.
+/purge - Mesajları temizler.
+/purge [n] - Yanıtlanan mesajdan itibaren "n" kadar mesajı temizler.
+/del - Yanıtlanan mesajı siler.
+/promote - Bir üyeyi yönetici yapar.
+/fullpromote - Bir üyeyi tüm yetkilerle yönetici yapar.
+/demote - Bir yöneticinin yetkilerini alır.
+/pin - Bir mesajı sabitler.
+/unpin - Sabitlenmiş bir mesajı kaldırır.
+/unpinall - Tüm sabitlenmiş mesajları kaldırır.
+/mute - Bir kullanıcıyı susturur.
+/tmute - Bir kullanıcıyı belirli süreliğine susturur.
+/unmute - Susturulmuş bir kullanıcıyı serbest bırakır.
+/zombies - Silinmiş hesapları yasaklar.
+/report veya @admins veya @admin - Bir mesajı yöneticilere bildirir.
 """
 
 HELP_19 = """
-<b><u>ɪᴍᴀɢᴇ ʟɪɴᴋ ɢᴇɴᴇʀᴀᴛᴏʀ:</b></u>
+<b><u>📷 Görsel Bağlantı Oluşturucu:</u></b>
 
-/tgm : ʀᴇᴘʟʏ ᴛᴏ ᴀɴ ᴀɴʏ ɪᴍᴀɢᴇ,ᴠɪᴅᴇᴏ ᴏʀ ɢɪғ
+/tgm - Herhangi bir resme, videoya veya GIF’e yanıt vererek bağlantı oluşturur.
 """
 
 HELP_20 = """
-<b><u>ᴛᴀɢ ᴄᴏᴍᴍᴀɴᴅs:</b></u>
+<b><u>🏷️ Etiketleme Komutları:</u></b>
 
-/tagall [ʏᴏᴜʀ ᴍᴇssᴀɢᴇ ᴏʀ ʀᴇᴘʟʏ ᴏɴ ᴀɴʏ ᴄʜᴀᴛ] : ᴛᴀɢ ᴀʟʟ ᴜsᴇʀs.
-/admins [ʏᴏᴜʀ ᴍᴇssᴀɢᴇ ᴏʀ ʀᴇᴘʟʏ ᴏɴ ᴀɴʏ ᴄʜᴀᴛ] : ᴛᴀɢ ᴀʟʟ ᴀᴅᴍɪɴs.
+/tagall [mesajınız veya bir mesaja yanıt] - Gruptaki tüm üyeleri etiketler.
+/admins [mesajınız veya bir mesaja yanıt] - Gruptaki tüm yöneticileri etiketler.
 """
 
 HELP_21 = """
-<b><u>ᴅᴏᴡɴʟᴏᴀᴅ ᴠɪᴅᴇᴏs:</b></u>
+<b><u>📥 Video İndirme:</u></b>
 
-/vid : ᴅᴏᴡɴʟᴏᴀᴅ ᴀɴʏ ɪɴsᴛᴀ ᴛᴡɪᴛᴛᴇʀ ᴀɴᴅ ᴍᴏʀᴇ ᴘʟᴀᴛғᴏʀᴍs ᴠɪᴅᴇᴏ.
+/vid - Instagram, Twitter ve diğer platformlardan video indirir.
 """
 
-# Copyright (c) 2025 Nand Yaduwanshi <NoxxOP>
+HELP_22 = """
+🔊 <b>Metinden Konuşmaya (TTS)</b> 🎤
 
-# 🎯 TEXT TO SPEECH COMMANDS
-HELP_22 = """ 🔊 <b>TEXT TO SPEECH</b> 🎤
+• /tts <metin> - Yazdığınız metni sesli olarak okur.
+<b>Örnek:</b>
+/tts Merhaba, nasılsınız? 🙏
 
-• /tts &lt;text&gt;: Converts the given text to speech in Hindi 🇮🇳
-<b>Example:</b>
-• /tts Radhe Radhe 🙏
+<b>Not:</b> Komuttan sonra mutlaka bir metin yazmalısınız.
+"""
 
-<b>Note:</b> Make sure to provide some text after the /tts command ✨ """
+HELP_23 = """
+🔗 <b>Davet Bağlantısı Komutları</b> 💫
 
-# 🔗 INVITE LINK COMMANDS  
-HELP_23 = """ 🔗 <b>INVITE LINK COMMANDS</b> 💫
+• /givelink - Mevcut sohbetin davet bağlantısını alır.
+• /link <grup_id> - Belirtilen grup için davet bağlantısı oluşturur.
+"""
 
-• /givelink: Get the invite link for the current chat 📱
-• /link group_id: Get information and generate an invite link for the specified group ID 🆔 """
+HELP_24 = """
+🔒 <b>Zorunlu Kanal Aboneliği</b> 🎯
 
-# 🔒 FORCE SUBSCRIPTION COMMANDS
-HELP_24 = """ 🔒 <b>FORCE SUBSCRIPTION COMMANDS</b> 🎯
+• /fsub <kanal kullanıcı adı veya ID> - Bu grup için zorunlu kanal aboneliği ayarlar.
+• /fsub off - Zorunlu kanal aboneliğini kapatır.
+"""
 
-• /fsub &lt;channel username or id&gt; - Set force subscription for this group 📢
-• /fsub off - Disable force subscription for this group ❌ """
+HELP_25 = """
+🧟 <b>Silinmiş Hesaplar</b> 💀
 
-# 🧟 ZOMBIE ACCOUNTS
-HELP_25 = """ 🧟 <b>ZOMBIE ACCOUNTS</b> 💀
+• /zombies - Gruptaki silinmiş hesapları tespit eder ve yasaklar.
+"""
 
-• /zombies - Ban Deleted Accounts 🚫 """
+HELP_26 = """
+👤 <b>Kullanıcı Bilgisi</b> 📊
 
-# 👤 USER INFORMATION
-HELP_26 = """ 👤 <b>USER INFORMATION</b> 📊
+• /info <kullanıcı_id> - Bir kullanıcı hakkında detaylı bilgi alır.
+• /userinfo <kullanıcı_id> - /info komutunun kısayolu.
+"""
 
-• /info [user_id]: Get detailed information about a user 🔍
-• /userinfo [user_id]: Alias for /info 👥 """
+HELP_27 = """
+📁 <b>GitHub Depo İndirici</b> 🐙
 
-# 📁 GITHUB REPOSITORY DOWNLOADER
-HELP_27 = """ 📁 <b>GITHUB REPOSITORY DOWNLOADER</b> 🐙
+• /downloadrepo <repo_url> - Belirtilen GitHub deposunu indirir ve zip dosyası olarak gönderir.
+"""
 
-<b>Commands Help:</b> 💻
-1. /downloadrepo 📥
+HELP_28 = """
+🎲 <b>Doğruluk mu Cesaret mi?</b> 🎯
 
-<b>Description:</b> Download and retrieve files from a GitHub repository 🗂️
-<b>Usage:</b> /downloadrepo [Repo_URL] 🔗
-<b>Details:</b>
-• Clones the specified GitHub repository 📋
-• Creates a zip file of the repository 📦
-• Sends the zip file back as a document 📄
-• If the download fails, an error message will be displayed ⚠️
+• /truth - Rastgele bir doğruluk sorusu getirir.
+• /dare - Rastgele bir cesaret görevi verir.
+"""
 
-<b>Examples:</b>
-• /downloadrepo https://github.com/username/repository 🌟 """
+HELP_29 = """
+🍃 <b>MongoDB Bağlantı Kontrolü</b> 🔍
 
-# 🎲 TRUTH OR DARE BOT COMMANDS
-HELP_28 = """ 🎲 <b>TRUTH OR DARE BOT COMMANDS</b> 🎯
+• /mongochk <mongo_url> - MongoDB bağlantısını test eder.
+"""
 
-Use these commands to play truth or dare: 🎮
-• /truth: Get a random truth question. Answer honestly! 💭
-• /dare: Get a random dare challenge. Complete it if you dare! 🔥
+HELP_30 = """
+🔤 <b>Yazı Tipi Dönüştürücü</b> ✨
 
-<b>Examples:</b>
-• /truth: "What is your most embarrassing moment?" 😅
-• /dare: "Do 10 push-ups." 💪
-
-<b>Note:</b> If you encounter any issues with fetching questions, please try again later ⏰ """
-
-# 🍃 MONGODB CHECKER
-HELP_29 = """ 🍃 <b>MONGODB CHECKER</b> 🔍
-
-• /mongochk [mongo_url]: Checks the validity of a MongoDB URL and connection to the MongoDB instance 🗄️ """
-
-# 🔤 FONT CONVERTER
-HELP_30 = """ 🔤 <b>FONT CONVERTER</b> ✨
-
-• /font [text] - Converts simple text to beautiful text by changing its font 🎨 """
+• /font <metin> - Yazınızı farklı yazı tipleriyle dönüştürür.
+"""
 
 HELP_31 = """ 📜 <b>ŞİİR & SÖZ KOMUTLARI</b> ✍️
 
@@ -334,7 +316,8 @@ HELP_32 = """ 🤖 <b>BOT LIST</b> 🎯
 # 📝 MARKDOWN HELP
 HELP_33 = """ 📝 <b>MARKDOWN HELP</b> 📖
 
-• /markdownhelp - Help about Markdown 🔧 """
+• /markdownhelp - Help about using Markdown formatting in messages 🔧 """
+
 HELP_34 = """ 🏷️ <b>ÖZEL TAG YARDIMI</b> 🌟
 
 <b>Günaydın:</b> 🌅
@@ -356,8 +339,10 @@ HELP_34 = """ 🏷️ <b>ÖZEL TAG YARDIMI</b> 🌟
 <b>Not:</b> Aynı anda bir sohbet için sadece bir mesajlaşma oturumu çalışabilir 📌
 """
 
-HELP_35 = """ <b>User Welcome Message</b>
-• /welcome on/off: Enable or Disable welcome message . """
+HELP_35 = """ 👋 <b>KULLANICI KARŞILAMA MESAJI</b> 🎉
+
+• /welcome on - Yeni üyeler için karşılama mesajını aç ✅
+• /welcome off - Karşılama mesajını kapat ❌ """
 
 
 # ©️ Copyright Reserved - @NoxxOP  Nand Yaduwanshi
