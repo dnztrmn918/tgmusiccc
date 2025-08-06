@@ -14,7 +14,7 @@ active_chats = {}
 def load_messages():
     # wish.py ile aynı klasörü bul
     base_dir = os.path.dirname(__file__)
-    file_path = os.path.join(base_dir, "veri.json")
+    file_path = os.path.join(base_dir, "messages.json")
 
     # Dosyayı aç
     with open(file_path, "r", encoding="utf-8") as f:
