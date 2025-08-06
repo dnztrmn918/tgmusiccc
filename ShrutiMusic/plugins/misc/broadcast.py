@@ -1,25 +1,3 @@
-# Copyright (c) 2025 Nand Yaduwanshi <NoxxOP>
-# Location: Supaul, Bihar
-#
-# All rights reserved.
-#
-# This code is the intellectual property of Nand Yaduwanshi.
-# You are not allowed to copy, modify, redistribute, or use this
-# code for commercial or personal projects without explicit permission.
-#
-# Allowed:
-# - Forking for personal learning
-# - Submitting improvements via pull requests
-#
-# Not Allowed:
-# - Claiming this code as your own
-# - Re-uploading without credit or permission
-# - Selling or using commercially
-#
-# Contact for permissions:
-# Email: badboy809075@gmail.com
-
-
 import asyncio
 
 from pyrogram import filters
@@ -27,7 +5,7 @@ from pyrogram.enums import ChatMembersFilter
 from pyrogram.errors import FloodWait
 
 from ShrutiMusic import app
-from ShrutiMusic.misc import SUDOERS  # MongoDB'den çekiliyor
+from ShrutiMusic.misc import SUDOERS  # MongoDB'den gelen set
 from ShrutiMusic.utils.database import (
     get_active_chats,
     get_authuser_names,
@@ -39,10 +17,13 @@ from ShrutiMusic.utils.decorators.language import language
 from ShrutiMusic.utils.formatters import alpha_to_int
 from config import adminlist
 
+# Pyrogram 2.x uyumu için: set → list
+SUDOERS_LIST = list(SUDOERS)
+
 IS_BROADCASTING = False
 
 
-@app.on_message((filters.command(["broadcast", "yayınla"])) & filters.user(SUDOERS))
+@app.on_message((filters.command(["broadcast", "yayınla"])) & filters.user(SUDOERS_LIST))
 @language
 async def broadcast_message(client, message, _):
     global IS_BROADCASTING
@@ -51,7 +32,6 @@ async def broadcast_message(client, message, _):
         if not message.reply_to_message or not (message.reply_to_message.photo or message.reply_to_message.text):
             return await message.reply_text("Lütfen yayınlamak istediğiniz metin veya fotoğrafa yanıt verin.")
 
-        # Yanıtlanan mesajdan içerik çıkar
         if message.reply_to_message.photo:
             content_type = 'photo'
             file_id = message.reply_to_message.photo.file_id
@@ -60,7 +40,7 @@ async def broadcast_message(client, message, _):
             text_content = message.reply_to_message.text
             
         caption = message.reply_to_message.caption
-        reply_markup = message.reply_to_message.reply_markup if hasattr(message.reply_to_message, 'reply_markup') else None
+        reply_markup = getattr(message.reply_to_message, 'reply_markup', None)
 
         IS_BROADCASTING = True
         await message.reply_text("Yayın işlemi başlatıldı, lütfen bekleyin...")
@@ -77,7 +57,7 @@ async def broadcast_message(client, message, _):
                     sent_chats += 1
                     await asyncio.sleep(0.2)
                 except FloodWait as fw:
-                    await asyncio.sleep(fw.x)
+                    await asyncio.sleep(fw.value)
                 except:
                     continue
             await message.reply_text(f"Sohbetlere yayın tamamlandı! Toplam {sent_chats} sohbet.")
@@ -94,7 +74,7 @@ async def broadcast_message(client, message, _):
                     sent_users += 1
                     await asyncio.sleep(0.2)
                 except FloodWait as fw:
-                    await asyncio.sleep(fw.x)
+                    await asyncio.sleep(fw.value)
                 except:
                     continue
             await message.reply_text(f"Kullanıcılara yayın tamamlandı! Toplam {sent_users} kullanıcı.")
@@ -105,7 +85,7 @@ async def broadcast_message(client, message, _):
     if message.reply_to_message:
         x = message.reply_to_message.id
         y = message.chat.id
-        reply_markup = message.reply_to_message.reply_markup if message.reply_to_message.reply_markup else None
+        reply_markup = getattr(message.reply_to_message, 'reply_markup', None)
     else:
         if len(message.command) < 2:
             return await message.reply_text("Lütfen yayınlamak istediğiniz mesajı yazın.")
@@ -144,10 +124,9 @@ async def broadcast_message(client, message, _):
                 sent += 1
                 await asyncio.sleep(0.2)
             except FloodWait as fw:
-                flood_time = int(fw.value)
-                if flood_time > 200:
+                if fw.value > 200:
                     continue
-                await asyncio.sleep(flood_time)
+                await asyncio.sleep(fw.value)
             except:
                 continue
         try:
@@ -168,10 +147,9 @@ async def broadcast_message(client, message, _):
                 susr += 1
                 await asyncio.sleep(0.2)
             except FloodWait as fw:
-                flood_time = int(fw.value)
-                if flood_time > 200:
+                if fw.value > 200:
                     continue
-                await asyncio.sleep(flood_time)
+                await asyncio.sleep(fw.value)
             except:
                 pass
         try:
@@ -196,10 +174,9 @@ async def broadcast_message(client, message, _):
                     sent += 1
                     await asyncio.sleep(3)
                 except FloodWait as fw:
-                    flood_time = int(fw.value)
-                    if flood_time > 200:
+                    if fw.value > 200:
                         continue
-                    await asyncio.sleep(flood_time)
+                    await asyncio.sleep(fw.value)
                 except:
                     continue
             text += f"Asistan {num} - Gönderilen mesaj sayısı: {sent}\n"
@@ -232,12 +209,3 @@ async def auto_clean():
 
 
 asyncio.create_task(auto_clean())
-
-
-# ©️ Copyright Reserved - @NoxxOP  Nand Yaduwanshi
-
-# ===========================================
-# ©️ 2025 Nand Yaduwanshi (aka @NoxxOP)
-# 🔗 GitHub : https://github.com/NoxxOP/ShrutiMusic
-# 📢 Telegram Channel : https://t.me/ShrutiBots
-# ===========================================
