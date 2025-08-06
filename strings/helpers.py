@@ -312,12 +312,19 @@ HELP_30 = """ 🔤 <b>FONT CONVERTER</b> ✨
 
 • /font [text] - Converts simple text to beautiful text by changing its font 🎨 """
 
-# 🤬 GALI COMMANDS
-HELP_31 = """ 🤬 <b>GALI COMMANDS</b> 😤
+HELP_31 = """ 📜 <b>ŞİİR & SÖZ KOMUTLARI</b> ✍️
 
-<b>Commands:</b>
-• /gali - Send random gali (works in DM) 💢
-• .gali - Alternative command format 🔥 """
+/siir - Rastgele şiir gönderir  
+/soz - Rastgele söz gönderir  
+
+🔐 <b>Sadece bot sahibi kullanabilir:</b>  
+/siirekle &lt;şiir&gt; - Yeni şiir ekler  
+/sozekle &lt;söz&gt; - Yeni söz ekler  
+
+Örnek:  
+<code>/siirekle Geceye şiir gibi düştün.</code>  
+<code>/sozekle Yalnızlık paylaşılmaz.</code>
+"""
 
 # 🤖 BOT LIST
 HELP_32 = """ 🤖 <b>BOT LIST</b> 🎯
