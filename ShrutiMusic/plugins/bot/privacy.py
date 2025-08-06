@@ -1,37 +1,36 @@
 # Copyright (c) 2025 Nand Yaduwanshi <NoxxOP>
 # Location: Supaul, Bihar
 #
-# All rights reserved.
+# Tüm hakları saklıdır.
 #
-# This code is the intellectual property of Nand Yaduwanshi.
-# You are not allowed to copy, modify, redistribute, or use this
-# code for commercial or personal projects without explicit permission.
+# Bu kod Nand Yaduwanshi'nin fikri mülkiyetidir.
+# Açık izin olmadan bu kodu kopyalamak, değiştirmek, yeniden dağıtmak
+# veya ticari / kişisel projelerde kullanmak yasaktır.
 #
-# Allowed:
-# - Forking for personal learning
-# - Submitting improvements via pull requests
+# İzin Verilen:
+# - Kişisel öğrenme amacıyla forklamak
+# - Pull request ile geliştirme önerileri sunmak
 #
-# Not Allowed:
-# - Claiming this code as your own
-# - Re-uploading without credit or permission
-# - Selling or using commercially
+# Yasak:
+# - Bu kodu kendi kodunuzmuş gibi göstermek
+# - İzin veya kaynak belirtmeden yeniden yüklemek
+# - Ticari amaçla kullanmak
 #
-# Contact for permissions:
-# Email: badboy809075@gmail.com
+# İzinler için iletişim:
+# E-posta: badboy809075@gmail.com
 
-
-from pyrogram import Client, filters
+from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from pyrogram.enums import ParseMode
 from ShrutiMusic import app
 import config
 
 TEXT = f"""
-🔒 **Privacy Policy for {app.mention} !**
+🔒 **{app.mention} için Gizlilik Politikası!**
 
-Your privacy is important to us. To learn more about how we collect, use, and protect your data, please review our Privacy Policy here: [Privacy Policy]({config.PRIVACY_LINK}).
+Gizliliğiniz bizim için önemlidir. Verilerinizi nasıl topladığımız, kullandığımız ve koruduğumuz hakkında daha fazla bilgi edinmek için lütfen Gizlilik Politikamızı inceleyin: [Gizlilik Politikası]({config.PRIVACY_LINK}).
 
-If you have any questions or concerns, feel free to reach out to our [support team](https://t.me/ShrutiBotSupport).
+Herhangi bir sorunuz veya endişeniz varsa, lütfen [destek ekibimizle](https://t.me/ShrutiBotSupport) iletişime geçin.
 """
 
 @app.on_message(filters.command("privacy"))
@@ -40,7 +39,7 @@ async def privacy(client, message: Message):
         [
             [
                 InlineKeyboardButton(
-                    "View Privacy Policy", url=config.SUPPORT_GROUP
+                    "Gizlilik Politikasını Görüntüle", url=config.SUPPORT_GROUP
                 )
             ]
         ]
@@ -52,12 +51,10 @@ async def privacy(client, message: Message):
         disable_web_page_preview=True
     )
 
-
-
-# ©️ Copyright Reserved - @NoxxOP  Nand Yaduwanshi
+# ©️ Telif Hakkı Saklıdır - @NoxxOP  Nand Yaduwanshi
 
 # ===========================================
 # ©️ 2025 Nand Yaduwanshi (aka @NoxxOP)
 # 🔗 GitHub : https://github.com/NoxxOP/ShrutiMusic
-# 📢 Telegram Channel : https://t.me/ShrutiBots
+# 📢 Telegram Kanalı : https://t.me/ShrutiBots
 # ===========================================
