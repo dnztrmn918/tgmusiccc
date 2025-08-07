@@ -35,7 +35,7 @@ def rastgele_soru(kategori: str) -> str:
         return None
 
 # /t → Doğruluk
-@app.on_message(filters.command(["t"]))
+@app.on_message(filters.command(["d"]))
 async def dogruluk_gonder(client, message):
     soru = rastgele_soru("dogruluk")
     if not soru:
