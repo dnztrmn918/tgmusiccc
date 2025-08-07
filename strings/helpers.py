@@ -278,8 +278,8 @@ HELP_27 = """
 HELP_28 = """
 🎲 <b>Doğruluk mu Cesaret mi?</b> 🎯
 
-• /truth - Rastgele bir doğruluk sorusu getirir.
-• /dare - Rastgele bir cesaret görevi verir.
+• /t - Rastgele bir doğruluk sorusu getirir.
+• /c - Rastgele bir cesaret görevi verir.
 """
 
 HELP_29 = """
