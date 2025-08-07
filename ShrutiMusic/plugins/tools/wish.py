@@ -56,7 +56,7 @@ async def tag_users(chat_id, messages, tag_type):
         
         await app.send_message(chat_id, full_msg, disable_web_page_preview=True, parse_mode=enums.ParseMode.MARKDOWN)
         
-        await asyncio.sleep(2)
+        await asyncio.sleep(5)
     
     active_chats.pop(chat_id, None)
     await app.send_message(chat_id, f"✅ {tag_type} etiketleme tamamlandı!")
