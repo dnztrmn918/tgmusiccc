@@ -7,7 +7,7 @@ from pyrogram import Client, filters
 from ShrutiMusic import app  # bot instance
 
 # JSON dosyası yolu
-JSON_DOSYA = "truth_dare.json"
+JSON_DOSYA = "ShrutiMusic/plugins/tools/truth_dare.json"
 
 # JSON dosyasını kontrol et / oluştur
 def veri_kontrol_et():
@@ -50,7 +50,7 @@ async def cesaret_gonder(client, message):
         return await message.reply_text("📭 Henüz eklenmiş bir cesaret görevi yok.")
     await message.reply_text(f"🔥 **Cesaret Görevi:**\n\n{gorev}")
 
-# JSON'a veri ekleme (sadece bot sahibi ekleyebilir istersen buraya OWNER_ID ekleyebilirsin)
+# JSON'a veri ekleme
 def veri_ekle(kategori: str, metin: str) -> bool:
     try:
         with open(JSON_DOSYA, "r", encoding="utf-8") as f:
