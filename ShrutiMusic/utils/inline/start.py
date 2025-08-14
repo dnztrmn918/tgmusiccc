@@ -53,7 +53,7 @@ def private_panel(_):
 def about_panel(_):
     buttons = [
         [
-            InlineKeyboardButton(text=_["S_B_6"], url="https://t.me/"),  # Kᴀɴᴀʟ (şimdilik boş link)
+            InlineKeyboardButton(text=_["S_B_6"], url="https://t.me/tubidymusic"),  # Kᴀɴᴀʟ (şimdilik boş link)
             InlineKeyboardButton(text=_["S_B_2"], url="https://t.me/tubidymusic_bot"),  # Bot linki
         ],
         [
@@ -71,7 +71,7 @@ def owner_panel(_):
         ],
         [
             InlineKeyboardButton(text=_["S_H_3"], url="https://t.me/tubidymusic"),
-            InlineKeyboardButton(text=_["S_H_4"], url="https://t.me/+W4N0wBYvXhFhMGI0"),
+            InlineKeyboardButton(text=_["S_H_4"], url="https://t.me/sohbetgo_tr"),
         ],
         [
             InlineKeyboardButton(text=_["BACK_BUTTON"], callback_data="settingsback_helper")
