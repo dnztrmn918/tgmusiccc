@@ -164,28 +164,30 @@ class NovaMusicBot:
         # Özel mesaj kontrolü
         if chat_type == "private":
             welcome_text = f"""
-🎵 **Hoş Geldiniz {user.first_name}!**
+🌟 **Merhaba {user.first_name}!** 🌟
 
-Ben **{BOT_NAME}** asistanıyım. Size şu özellikleri sunuyorum:
+🎵 **{BOT_NAME}** ile tanıştığınıza memnunum!
 
-🎧 **Müzik Oynatma**
-• YouTube, Spotify, SoundCloud desteği
-• Yüksek kaliteli ses akışı
-• Playlist yönetimi
+✨ **Ben Ne Yapabilirim?**
+• 🎧 **Yüksek kaliteli müzik çalma** (YouTube, Spotify, SoundCloud)
+• 📥 **Video ve ses indirme** (Farklı kalitelerde)
+• 🎵 **Playlist yönetimi** (Özel listeler oluşturma)
+• 🔄 **Otomatik kuyruk sistemi** (Kesintisiz müzik)
+• 🎚️ **Ses kalitesi ayarları** (Crystal clear audio)
 
-📥 **İndirme**
-• Video ve ses dosyası indirme
-• Farklı kalite seçenekleri
+🚀 **Nasıl Kullanılır?**
+1. Bir gruba gidin
+2. Sesli sohbete katılın
+3. `/oynat şarkı_adı` yazın
+4. Müziğin keyfini çıkarın! 🎶
 
-📢 **Broadcast**
-• Toplu mesaj gönderme
-• Kullanıcı ve grup yönetimi
+💡 **Hızlı Komutlar:**
+• `/oynat` - Müzik çalar
+• `/durdur` - Duraklatır
+• `/devam` - Devam ettirir
+• `/liste` - Kuyruğu gösterir
 
-🔧 **Yönetim**
-• Gelişmiş istatistikler
-• Otomatik moderasyon
-
-**Komutlar için /help yazın**
+**Detaylı komutlar için /yardım yazın** 📖
             """
             
             keyboard = InlineKeyboardMarkup([
@@ -201,19 +203,19 @@ Ben **{BOT_NAME}** asistanıyım. Size şu özellikleri sunuyorum:
         else:
             # Grup mesajı
             welcome_text = f"""
-🎵 **{BOT_NAME} Bot Aktif!**
+🎵 **{BOT_NAME} Aktif!** 🎵
 
-Merhaba {user.first_name}! Ben müzik asistanınızım.
+Merhaba {user.first_name}! Ben müzik asistanınızım! 🎧
 
-**Temel Komutlar:**
-• `/oynat <şarkı>` - Şarkı çalar
-• `/durdur` - Müziği duraklatır
-• `/devam` - Müziği devam ettirir
-• `/bitir` - Müziği durdurur
+**🎶 Hızlı Komutlar:**
+• `/oynat şarkı` - Müzik çalar
+• `/durdur` - Duraklatır
+• `/devam` - Devam ettirir
+• `/bitir` - Durdurur
 • `/atla` - Şarkıyı atlar
 • `/liste` - Kuyruğu gösterir
 
-**Detaylı komutlar için /yardım yazın**
+**📖 Tüm komutlar için /yardım yazın**
             """
             
             keyboard = InlineKeyboardMarkup([
@@ -248,7 +250,7 @@ Merhaba {user.first_name}! Ben müzik asistanınızım.
             # YouTube'dan şarkı bilgilerini al
             track_info = await self.get_track_info(query)
             if not track_info:
-                await status_msg.edit_text("❌ Şarkı bulunamadı!")
+                await status_msg.edit_text("❌ Şarkı bulunamadı! Farklı bir arama terimi deneyin.")
                 return
                 
             # Kuyruğa ekle
@@ -259,12 +261,15 @@ Merhaba {user.first_name}! Ben müzik asistanınızım.
             
             # Eğer şu anda çalan şarkı yoksa çalmaya başla
             if chat_id not in self.current_track:
-                await self.play_next(chat_id)
-                await status_msg.edit_text(
-                    f"🎵 **Şimdi Çalıyor:** {track_info['title']}\n"
-                    f"👤 **Sanatçı:** {track_info['uploader']}\n"
-                    f"⏱️ **Süre:** {self.format_duration(track_info['duration'])}"
-                )
+                success = await self.play_next(chat_id)
+                if success:
+                    await status_msg.edit_text(
+                        f"🎵 **Şimdi Çalıyor:** {track_info['title']}\n"
+                        f"👤 **Sanatçı:** {track_info['uploader']}\n"
+                        f"⏱️ **Süre:** {self.format_duration(track_info['duration'])}"
+                    )
+                else:
+                    await status_msg.edit_text("❌ Müzik çalma hatası! Lütfen tekrar deneyin.")
             else:
                 await status_msg.edit_text(
                     f"✅ **{track_info['title']}** kuyruğa eklendi!\n"
@@ -273,11 +278,12 @@ Merhaba {user.first_name}! Ben müzik asistanınızım.
                 
         except Exception as e:
             logger.error(f"Play error: {e}")
-            await status_msg.edit_text("❌ Bir hata oluştu!")
+            await status_msg.edit_text("❌ Bir hata oluştu! Lütfen tekrar deneyin.")
     
     async def get_track_info(self, query: str) -> Optional[Dict]:
         """YouTube'dan şarkı bilgilerini alır"""
         try:
+            # yt-dlp ayarları - daha güvenli ve stabil
             ydl_opts = {
                 'format': 'bestaudio/best',
                 'extractaudio': True,
@@ -285,28 +291,54 @@ Merhaba {user.first_name}! Ben müzik asistanınızım.
                 'outtmpl': '%(title)s.%(ext)s',
                 'quiet': True,
                 'no_warnings': True,
+                'nocheckcertificate': True,
+                'ignoreerrors': False,
+                'logtostderr': False,
+                'geo_bypass': True,
+                'geo_bypass_country': 'TR',
+                'extractor_retries': 3,
+                'socket_timeout': 30,
+                'retries': 3,
             }
             
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                info = ydl.extract_info(f"ytsearch:{query}", download=False)
+                # YouTube arama
+                if not query.startswith(('http://', 'https://')):
+                    search_query = f"ytsearch:{query}"
+                else:
+                    search_query = query
+                
+                info = ydl.extract_info(search_query, download=False)
+                
                 if info and 'entries' in info and info['entries']:
                     entry = info['entries'][0]
-                    return {
-                        'title': entry.get('title', 'Unknown'),
-                        'duration': entry.get('duration', 0),
-                        'url': entry.get('url', ''),
-                        'thumbnail': entry.get('thumbnail', ''),
-                        'uploader': entry.get('uploader', 'Unknown'),
-                        'webpage_url': entry.get('webpage_url', '')
-                    }
+                elif info:
+                    entry = info
+                else:
+                    return None
+                
+                # URL kontrolü
+                if not entry.get('url'):
+                    logger.error("Video URL bulunamadı")
+                    return None
+                
+                return {
+                    'title': entry.get('title', 'Unknown'),
+                    'duration': entry.get('duration', 0),
+                    'url': entry.get('url', ''),
+                    'thumbnail': entry.get('thumbnail', ''),
+                    'uploader': entry.get('uploader', 'Unknown'),
+                    'webpage_url': entry.get('webpage_url', '')
+                }
+                
         except Exception as e:
             logger.error(f"Track info error: {e}")
             return None
     
-    async def play_next(self, chat_id: int):
+    async def play_next(self, chat_id: int) -> bool:
         """Sıradaki şarkıyı çalar"""
         if chat_id not in self.queues or not self.queues[chat_id]:
-            return
+            return False
             
         track = self.queues[chat_id].pop(0)
         self.current_track[chat_id] = track
@@ -321,9 +353,15 @@ Merhaba {user.first_name}! Ben müzik asistanınızım.
                     )
                 )
             )
+            return True
             
         except Exception as e:
             logger.error(f"Play next error: {e}")
+            # Hata durumunda track'i geri kuyruğa ekle
+            self.queues[chat_id].insert(0, track)
+            if chat_id in self.current_track:
+                del self.current_track[chat_id]
+            return False
     
     async def pause_handler(self, message: Message):
         """Duraklatma işleyicisi"""
@@ -377,8 +415,11 @@ Merhaba {user.first_name}! Ben müzik asistanınızım.
             
         try:
             await self.calls.leave_group_call(chat_id)
-            await self.play_next(chat_id)
-            await message.reply_text("⏭️ Şarkı atlandı!")
+            success = await self.play_next(chat_id)
+            if success:
+                await message.reply_text("⏭️ Şarkı atlandı!")
+            else:
+                await message.reply_text("❌ Atlama hatası! Lütfen tekrar deneyin.")
         except Exception as e:
             await message.reply_text("❌ Atlama hatası!")
     

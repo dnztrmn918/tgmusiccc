@@ -6,7 +6,7 @@ pytgcalls==0.9.7
 python-dotenv==1.0.0
 
 # Müzik ve medya işleme
-yt-dlp==2023.12.30
+yt-dlp==2024.3.10
 ffmpeg-python==0.2.0
 
 # Veritabanı
