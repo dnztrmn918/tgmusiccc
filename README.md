@@ -1,237 +1,165 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/NoxxOP/ShrutiMusic/main/ShrutiMusic/assets/ShrutiBots.jpg" alt="ShrutiMusicBot Logo" width="500px">
-</p>
-
-<h1 align="center">🎵 Shruti Music Bot 🎵</h1>
+# 🎵 Nova Music Bot
 
 <p align="center">
-  <b>A Powerful Telegram Music Bot to Play Songs in Voice Chats</b>
+  <img src="https://img.shields.io/badge/Nova%20Music%20Bot-blue?style=for-the-badge&logo=telegram&logoColor=white" alt="Nova Music Bot">
 </p>
 
 <p align="center">
-  <a href="https://t.me/ShrutiBots"><img src="https://img.shields.io/badge/Support%20Channel-blue?style=for-the-badge&logo=telegram&logoColor=white&link=https://t.me/ShrutiBots" alt="Support Channel"></a>
-  <a href="https://t.me/ShrutiBotSupport"><img src="https://img.shields.io/badge/Support%20Group-blue?style=for-the-badge&logo=telegram&logoColor=white" alt="Support Group"></a>
-  <a href="https://t.me/WTF_WhyMeeh"><img src="https://img.shields.io/badge/Owner-purple?style=for-the-badge&logo=telegram&logoColor=white" alt="Owner"></a>
+  <b>Gelişmiş Telegram Müzik Botu - Yüksek Kaliteli Ses Akışı ve Gelişmiş Özellikler</b>
 </p>
 
-<p align="center">
-  <a href="https://github.com/NoxxOP/ShrutiMusic/fork"><img src="https://img.shields.io/github/forks/NoxxOP/ShrutiMusic?style=social" alt="GitHub Forks"></a>
-  <a href="https://github.com/NoxxOP/ShrutiMusic/stargazers"><img src="https://img.shields.io/github/stars/NoxxOP/ShrutiMusic?style=social" alt="GitHub Stars"></a>
-  <a href="https://github.com/NoxxOP/ShrutiMusic/graphs/contributors"><img src="https://img.shields.io/github/contributors/NoxxOP/ShrutiMusic?style=social" alt="GitHub Contributors"></a>
-</p>
+## ✨ Özellikler
 
-<p align="center">
-<a href="https://dashboard.heroku.com/new?template=https://github.com/NoxxOP/ShrutiMusic"><img src="https://img.shields.io/badge/Deploy%20To%20Heroku-purple?style=for-the-badge&logo=heroku&logoColor=white" width="250px" alt="Deploy to Heroku"></a>
-</p>
+- 🎧 **Yüksek Kaliteli Müzik Oynatma** - YouTube, Spotify, SoundCloud desteği
+- 📥 **Video ve Ses İndirme** - Farklı kalite seçenekleri
+- 📢 **Gelişmiş Broadcast Sistemi** - Kullanıcı ve grup yönetimi
+- 🎵 **Playlist Yönetimi** - Özel playlist oluşturma ve yönetimi
+- 🔧 **Gelişmiş Yönetim Paneli** - Detaylı istatistikler ve moderasyon
+- 🌍 **Çoklu Dil Desteği** - Türkçe ve İngilizce
+- 🎚️ **Ses Kalitesi Ayarları** - Yüksek bitrate ve stereo ses
 
-<h2 align="center">🚀 Deploy to Render (Free)</h2>
+## 🚀 Komutlar
 
-<p align="center">
-  <a href="https://render.com/deploy?repo=https://github.com/NoxxOP/ShrutiMusic">
-    <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render">
-  </a>
-</p>
+### 🎧 Müzik Oynatma
+| Komut | Açıklama |
+|-------|----------|
+| `/oynat <şarkı>` | Şarkı çalar |
+| `/durdur` | Müziği duraklatır |
+| `/devam` | Müziği devam ettirir |
+| `/bitir` | Müziği durdurur |
+| `/atla` | Şarkıyı atlar |
+| `/liste` | Kuyruğu gösterir |
 
-## ✨ Features
+### 📥 İndirme
+| Komut | Açıklama |
+|-------|----------|
+| `/indir <url>` | Video indirir |
 
-- **Play Music**: Stream high-quality music in Telegram voice chats
-- **Multiple Sources**: YouTube, Spotify, SoundCloud, and local files
-- **Playlists**: Create and manage playlists for your group
-- **Multi-Language**: Available in multiple languages
-- **Elegant UI**: Clean and modern user interface
-- **Group Management**: Powerful admin commands
-- **High Quality**: Crystal clear audio streaming
+### 📢 Yönetim
+| Komut | Açıklama |
+|-------|----------|
+| `/yayınla` | Toplu mesaj gönderir |
+| `/yayınla -u` | Sadece kullanıcılara gönderir |
+| `/yayınla -g` | Sadece gruplara gönderir |
+| `/istatistik` | Bot istatistiklerini gösterir |
 
-## 📊 Repository Stats
+## 🛠️ Kurulum
 
-<p align="center">
-  <a href="https://github.com/NoxxOP/ShrutiMusic"><img src="https://img.shields.io/github/repo-size/NoxxOP/ShrutiMusic?style=flat-square" alt="Repo Size"></a>
-  <a href="https://github.com/NoxxOP/ShrutiMusic/issues"><img src="https://img.shields.io/github/issues/NoxxOP/ShrutiMusic?style=flat-square" alt="Issues"></a>
-  <a href="https://github.com/NoxxOP/ShrutiMusic/network/members"><img src="https://img.shields.io/github/forks/NoxxOP/ShrutiMusic?style=flat-square" alt="Forks"></a>
-  <a href="https://github.com/NoxxOP/ShrutiMusic/stargazers"><img src="https://img.shields.io/github/stars/NoxxOP/ShrutiMusic?style=flat-square" alt="Stars"></a>
-  <a href="https://github.com/NoxxOP/ShrutiMusic/blob/main/LICENSE"><img src="https://img.shields.io/github/license/NoxxOP/ShrutiMusic?style=flat-square" alt="LICENSE"></a>
-  <a href="https://github.com/NoxxOP/ShrutiMusic/commits/main"><img src="https://img.shields.io/github/last-commit/NoxxOP/ShrutiMusic?style=flat-square" alt="Last Commit"></a>
-</p>
+### Gereksinimler
+- Python 3.8+
+- FFmpeg
+- MongoDB
+- Telegram Bot Token
 
-## 🔥 Essential Commands
-
-| Command | Description |
-| --- | --- |
-| `/play` | Play song from YouTube |
-| `/pause` | Pause the current stream |
-| `/resume` | Resume the paused stream |
-| `/skip` | Skip to the next song |
-| `/stop` | Stop the streaming |
-| `/playlist` | Show the playlist |
-| `/song` | Download a song as audio |
-| `/settings` | Open bot settings |
-
-## 🚀 Deployment Guide
-
-### 🔧 VPS Deployment (Step by Step)
-
-#### Prerequisites
-
-First, update your system and install required packages:
-
+### Adım 1: Repoyu Klonlayın
 ```bash
-sudo apt-get update && sudo apt-get upgrade -y
+git clone https://github.com/your-username/nova-music-bot.git
+cd nova-music-bot
 ```
 
-# Install Python, Pip, FFmpeg, Git, Screen, Node.js, npm
-
-
+### Adım 2: Gerekli Paketleri Yükleyin
 ```bash
-sudo apt-get install python3 python3-pip ffmpeg git screen curl -y
+pip install -r requirements.txt
 ```
 
-# Install Node.js (LTS Version) and npm
-
-
+### Adım 3: FFmpeg Kurulumu
 ```bash
-curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+# Ubuntu/Debian
+sudo apt update
+sudo apt install ffmpeg
+
+# CentOS/RHEL
+sudo yum install ffmpeg
+
+# macOS
+brew install ffmpeg
 ```
 
+### Adım 4: Environment Variables
 ```bash
-sudo apt-get install -y nodejs
+cp .env.example .env
 ```
 
-
-#### Clone the Repository
-
-
-```bash
-git clone https://github.com/NoxxOP/ShrutiMusic
-cd ShrutiMusic
+`.env` dosyasını düzenleyin:
+```env
+API_ID=your_api_id_here
+API_HASH=your_api_hash_here
+BOT_TOKEN=your_bot_token_here
+OWNER_ID=your_telegram_user_id_here
+SUDO_USERS=user_id1,user_id2,user_id3
+MONGO_URI=mongodb://localhost:27017
 ```
 
-#### Run 24x7 bot using screen 
-
-
+### Adım 5: Botu Çalıştırın
 ```bash
-screen 
+python nova_music_bot.py
 ```
 
+## 📊 Bot İstatistikleri
 
-#### Setup Virtual Environment
+- 👥 **Toplam Kullanıcı:** Dinamik sayı
+- 💬 **Toplam Sohbet:** Dinamik sayı
+- 🎵 **Toplam Şarkı:** Dinamik sayı
+- 🎧 **Aktif Sohbet:** Dinamik sayı
+- 📋 **Toplam Kuyruk:** Dinamik sayı
 
-```bash
-python3 -m venv venv
-source venv/bin/activate
-```
+## 🔧 Gelişmiş Özellikler
 
-#### Install Dependencies
+### 🎚️ Ses Kalitesi
+- **Bitrate:** 48kbps (yüksek kalite)
+- **Channels:** Stereo (2 kanal)
+- **Sample Rate:** 48kHz
 
-```bash
-pip3 install -U pip
-pip3 install -U -r requirements.txt
-```
+### 📱 Kullanıcı Arayüzü
+- Inline butonlar
+- Medya mesajları
+- İlerleme çubuğu
+- Ses kontrolü
 
-#### Configuration
+### 🔄 Otomatik Özellikler
+- Akıllı kuyruk sistemi
+- Otomatik devam
+- Döngü modu
+- Karıştırma
 
-Copy example config file and edit it with your values:
+## 🌐 Desteklenen Platformlar
 
-```bash
-nano .env
-```
-Fill in your:
-- `API_ID` & `API_HASH` from my.telegram.org  
-- `BOT_TOKEN` from @BotFather  
-- `MONGO_DB_URI` from your MongoDB Atlas cluster  
-- `OWNER_ID` (Your Telegram user ID)  
-- `OWNER_USERNAME` (Your Telegram username without @)  
-- `BOT_USERNAME` (Your bot’s username without @)  
-- `UPSTREAM_REPO` (GitHub repo URL for updates Recommend : Original Source)  
-- `STRING_SESSION` (Generate using @ShrutiSessionBot)  
-- `GIT_TOKEN` (If your repo is private)  
-- `LOG_GROUP_ID` (Log group/channel ID starting with -100)  
-- `SUPPORT_GROUP` (Full Link of your Support Group)  
-- `SUPPORT_CHANNEL` (Full Link Of your Support channel )  
-- `COOKIE_URL` (Optional: If no cookies file in Your Repo)  
-- `START_IMG_URL` (Image URL for /start message thumbnail)
+- ✅ **YouTube** - Tam destek
+- ✅ **Spotify** - API entegrasyonu
+- ✅ **SoundCloud** - Tam destek
+- ✅ **Yerel Dosyalar** - Telegram dosyaları
 
-#### Starting the Bot
+## 📞 Destek
 
-There are two ways to start the bot:
+- 👤 **Yapımcı:** [@dnztrmnn](https://t.me/dnztrmnn)
+- 💬 **Sohbet Grubu:** [@sohbetgo_tr](https://t.me/sohbetgo_tr)
+- 📢 **Resmi Kanal:** Yakında açılacak
 
-1. Using Python directly:
-```bash
-python3 -m ShrutiMusic
-```
+## 📝 Lisans
 
-2. Using Bash script:
-```bash
-bash start
-```
+Bu proje MIT lisansı altında lisanslanmıştır.
 
-To detach the screen, press `Ctrl+A` then `D`
+## 🤝 Katkıda Bulunma
 
-To reattach the screen later:
+1. Bu repoyu fork edin
+2. Yeni bir branch oluşturun (`git checkout -b feature/amazing-feature`)
+3. Değişikliklerinizi commit edin (`git commit -m 'Add some amazing feature'`)
+4. Branch'inizi push edin (`git push origin feature/amazing-feature`)
+5. Pull Request oluşturun
 
-```bash
-screen -ls
-```
-See Your Screen ID and then:
+## ⚠️ Önemli Notlar
 
-```bash
-screen -r {screen_id}
-```
-
-Make Sure Fill Your Screen ID without Bracket {} .
-Example : screen -r 108108
-
-### ☁️ Heroku Deployment
-
-<p align="center">
-<a href="https://dashboard.heroku.com/new?template=https://github.com/NoxxOP/ShrutiMusic"><img src="https://img.shields.io/badge/Deploy%20To%20Heroku-purple?style=for-the-badge&logo=heroku&logoColor=white" width="250px" alt="Deploy to Heroku"></a>
-</p>
-
-1. Click the button above
-2. Fill in the required details:
-   - App name
-   - API_ID & API_HASH
-   - BOT_TOKEN
-   - MUSIC_BOT_NAME
-   - SESSION_STRING
-   - SUDO_USERS (your User ID)
-3. Click "Deploy App"
-4. Once deployed, go to Resources tab and turn on the worker
-
-## 🔄 How to Generate Session String
-
-Use our Session Generator Bot: [@ShrutiSessionBot](https://t.me/ShrutiSessionBot)
-
-1. Start the bot
-2. Send phone number with country code
-3. Enter the OTP
-4. Your session string will be generated
-
-## 🤔 Common Issues & Fixes
-
-- **Bot not responding**: Check if the bot is running and has proper permissions
-- **No sound in VC**: Ensure ffmpeg is properly installed
-- **Can't join voice chat**: Make sure the bot is an admin with voice chat permissions
-- **API Issues**: Double check your API_ID and API_HASH
-
-## 🌟 Credits and Acknowledgements
-
-- [NoxxOP](https://github.com/NoxxOP): Main Developer
-- All contributors who helped make this project better
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📞 Support
-
-For any questions or help, join our [Support Group](https://t.me/ShrutiBotSupport)
-
-<p align="center">
-<img src="https://img.shields.io/badge/Made%20with%20%E2%9D%A4%EF%B8%8F%20by-NoxxOP-red?style=for-the-badge" alt="Made with love">
-</p>
+- Bot sadece sesli sohbetlerde çalışır
+- Yönetici yetkileri gereklidir
+- Rate limiting'e dikkat edin
+- MongoDB bağlantısı zorunludur
 
 ---
 
 <p align="center">
-<b>🎵 Enjoy Streaming Music with Shruti Bot! 🎵</b>
+  <b>🎵 Nova Music Bot ile müzik keyfini yaşayın! 🎵</b>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Made%20with%20%E2%9D%A4%EF%B8%8F%20by-dnztrmnn-red?style=for-the-badge" alt="Made with love">
 </p>
