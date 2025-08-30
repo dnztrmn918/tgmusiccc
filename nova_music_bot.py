@@ -41,6 +41,9 @@ MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
 OWNER_ID = int(os.getenv("OWNER_ID", 0))
 SUDO_USERS = [int(x) for x in os.getenv("SUDO_USERS", "").split(",") if x]
 
+# Userbot Session (PyTgCalls için gerekli)
+STRING_SESSION = os.getenv("STRING_SESSION", None)
+
 # Bot Bilgileri
 BOT_NAME = "Nova Music"
 OWNER_USERNAME = "dnztrmnn"
@@ -56,13 +59,28 @@ logger = logging.getLogger(__name__)
 
 class NovaMusicBot:
     def __init__(self):
+        # Bot client
         self.app = Client(
             "nova_music_bot",
             api_id=API_ID,
             api_hash=API_HASH,
             bot_token=BOT_TOKEN
         )
-        self.calls = PyTgCalls(self.app)
+        
+        # Userbot client (PyTgCalls için)
+        if STRING_SESSION:
+            self.userbot = Client(
+                "nova_music_userbot",
+                api_id=API_ID,
+                api_hash=API_HASH,
+                session_string=STRING_SESSION
+            )
+        else:
+            self.userbot = None
+            logger.warning("⚠️ STRING_SESSION bulunamadı! PyTgCalls çalışmayabilir.")
+        
+        # PyTgCalls (userbot ile)
+        self.calls = PyTgCalls(self.userbot if self.userbot else self.app)
         self.mongo_client = AsyncIOMotorClient(MONGO_URI)
         self.db = self.mongo_client.nova_music_bot
         
@@ -585,6 +603,11 @@ Merhaba {user.first_name}! Ben müzik asistanınızım.
         # Downloads klasörünü oluştur
         os.makedirs("downloads", exist_ok=True)
         
+        # Userbot'u başlat (eğer varsa)
+        if self.userbot:
+            await self.userbot.start()
+            logger.info("✅ Userbot başlatıldı!")
+        
         # PyTgCalls'ı başlat
         await self.calls.start()
         
@@ -600,6 +623,11 @@ Merhaba {user.first_name}! Ben müzik asistanınızım.
         """Botu durdurur"""
         logger.info(f"🛑 {BOT_NAME} Bot durduruluyor...")
         await self.app.stop()
+        
+        if self.userbot:
+            await self.userbot.stop()
+            logger.info("✅ Userbot durduruldu!")
+        
         await self.calls.stop()
         await self.mongo_client.close()
 

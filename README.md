@@ -87,12 +87,25 @@ API_HASH=your_api_hash_here
 BOT_TOKEN=your_bot_token_here
 OWNER_ID=your_telegram_user_id_here
 SUDO_USERS=user_id1,user_id2,user_id3
+STRING_SESSION=your_session_string_here
 MONGO_URI=mongodb://localhost:27017
 ```
 
-### Adım 5: Botu Çalıştırın
+### Adım 5: Session String Oluşturma
+PyTgCalls için userbot session string'i gereklidir:
+
 ```bash
-python nova_music_bot.py
+python generate_session.py
+```
+
+Bu script:
+1. Telegram hesabınızla giriş yapmanızı ister
+2. Session string oluşturur
+3. `.env` dosyasına eklemeniz için gösterir
+
+### Adım 6: Botu Çalıştırın
+```bash
+python start.py
 ```
 
 ## 📊 Bot İstatistikleri

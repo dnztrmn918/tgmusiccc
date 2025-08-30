@@ -37,6 +37,7 @@ async def main():
     
     # Environment variables kontrolü
     required_vars = ['API_ID', 'API_HASH', 'BOT_TOKEN']
+    optional_vars = ['STRING_SESSION']
     missing_vars = []
     
     for var in required_vars:
@@ -47,6 +48,12 @@ async def main():
         print(f"❌ Eksik environment variables: {', '.join(missing_vars)}")
         print("📝 .env dosyasını kontrol edin ve gerekli değerleri girin")
         return
+    
+    # Session string kontrolü
+    if not os.getenv('STRING_SESSION'):
+        print("⚠️ STRING_SESSION bulunamadı!")
+        print("📝 Session string oluşturmak için: python generate_session.py")
+        print("⚠️ PyTgCalls çalışmayabilir!")
     
     # Bot instance'ı oluştur
     bot = NovaMusicBot()
