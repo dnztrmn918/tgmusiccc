@@ -79,7 +79,7 @@ async def show_help_page1(client, callback_query: CallbackQuery):
 async def fork_repo_callback(client, query):
     await query.message.edit_text(
         text=(
-            "✨ <b>TUBIDYMUSIC BOTUNA HOŞ GELDİN 🎧</b>\n\n"
+            "✨ <b>cosmos Music BOTUNA HOŞ GELDİN 🎧</b>\n\n"
             "🚀 Müzik ve şiir keyfini başlatmaya hazır mısın?\n"
             "Botumuzu hemen kullan, grubumuza ve kanalımıza katıl!\n\n"
             "🔧 <b>Özelleştir. Yayınla. Eğlen! 🔥</b>"
