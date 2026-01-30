@@ -79,20 +79,20 @@ async def show_help_page1(client, callback_query: CallbackQuery):
 async def fork_repo_callback(client, query):
     await query.message.edit_text(
         text=(
-            "✨ <b>ʙᴜɪʟᴅ Yᴏᴜʀ Oᴡɴ ᴍᴜsɪᴄ ʙᴏᴛ 🎧</b>\n\n"
-            "🚀 ʀᴇᴀᴅʏ ᴛᴏ ʟᴀᴜɴᴄʜ ʏᴏᴜʀ ᴏᴡɴ ʙᴏᴛ?\n"
-            "ғᴏʀᴋ ᴛʜᴇ ʀᴇᴘᴏ ᴀɴᴅ ᴅᴇᴘʟᴏʏ ɪɴ sᴇᴄᴏɴᴅs.\n\n"
-            "🔧 <b>Cᴜsᴛᴏᴍɪᴢᴇ ɪᴛ. Dᴇᴘʟᴏʏ ɪᴛ. Vɪʙᴇ ᴡɪᴛʜ ɪᴛ 🔥</b>"
+            "✨ <b>ʙɪᴢᴇ ᴜʟᴀşɪɴ ᴠᴇ ᴄ̧ᴏ̈ᴢᴜ̈ᴍ ʙᴜʟᴜɴ 🎧</b>\n\n"
+            "🛠 ʙᴏᴛ ᴄ̧ᴀʟɪşᴍɪʏᴏʀ ᴠᴇʏᴀ ᴅᴏɴᴜʏᴏʀ ᴍᴜ? ᴇɢ̆ᴇʀ ʙɪʀ sᴏʀᴜɴ ʏᴀşɪʏᴏʀsᴀɴɪᴢ, ʟᴜ̈ᴛғᴇɴ ᴏ̈ɴᴄᴇ /reload ᴋᴏᴍᴜᴛᴜʏʟᴀ ʏᴏ̈ɴᴇᴛɪᴄɪ ᴏ̈ɴʙᴇʟʟᴇɢ̆ɪɴɪ ʏᴇɴɪʟᴇʏɪɴ ᴠᴇʏᴀ sᴇsʟɪ sᴏʜʙᴇᴛɪ ᴋᴀᴘᴀᴛɪᴘ ᴛᴇᴋʀᴀʀ ᴀᴄ̧ɪɴ.\n"
+            "🛠 ʏᴀʏɪɴ ᴀɴɪᴅᴇɴ ᴅᴜʀᴅᴜ ᴍᴜ? ᴛᴇʟᴇɢʀᴀᴍ sᴜɴᴜᴄᴜ ʜᴀᴛᴀʟᴀʀɪɴᴅᴀ sᴏʜʙᴇᴛɪ ʙɪᴛɪʀɪᴘ ʏᴇɴɪᴅᴇɴ ʙᴀşʟᴀᴛᴍᴀᴋ ᴇɴ ʜɪᴢʟɪ ᴄ̧ᴏ̈ᴢᴜ̈ᴍᴅᴜ̈ʀ.\n\n"
+            "🔧 <b>ᴇɢ̆ᴇʀ sᴏʀᴜɴᴜ ʀᴇʟᴏᴀᴅ ᴠᴇ sᴇsʟɪ sᴏʜʙᴇᴛɪ ᴀᴄ̧ɪᴘ ᴋᴀᴘᴀᴛᴍᴀ ɪʟᴇ ᴄ̧ᴏ̈ᴢᴇᴍᴇᴢsᴇɴɪᴢ, ʟᴜ̈ᴛғᴇɴ ʙɪᴢʟᴇʀᴇ ᴜʟᴀşɪɴ.🔥</b>"
         ),
         disable_web_page_preview=True,
         reply_markup=InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("🚀 Fᴏʀᴋ Rᴇᴘᴏ", url="https://github.com/NoxxOP/ShrutiMusic/fork"),
-                    InlineKeyboardButton("⚡ Hᴇʀᴏᴋᴜ Dᴇᴘʟᴏʏ", url="https://dashboard.heroku.com/new?template=https://github.com/NoxxOP/ShrutiMusic")
+                    InlineKeyboardButton("💻 ɢᴇʟɪ̇şᴛɪ̇ʀɪ̇ᴄɪ̇", url="https://t.me/dnztrmnn"),
+                    InlineKeyboardButton(""🛠 ᴄ̧ᴏ̈ᴢᴜ̈ᴍ ɢʀᴜʙᴜ"", url="https://dashboard.heroku.com/new?template=https://github.com/NoxxOP/ShrutiMusic")
                 ],
                 [
-                    InlineKeyboardButton("🔙 Bᴀᴄᴋ", callback_data="settingsback_helper")
+                    InlineKeyboardButton("🔙 ɢᴇʀɪ̇", callback_data="settingsback_helper")
                 ]
             ]
         )
@@ -388,7 +388,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             return await CallbackQuery.answer("No music in queue!", show_alert=True)
         
         if command == "Skip":
-            txt = f"➻ sᴛʀᴇᴀᴍ sᴋɪᴩᴩᴇᴅ 🎄\n│ \n└ʙʏ : {mention} 🥀"
+            txt = f"➻ sɪʀᴀᴅᴀᴋɪ şᴀʀᴋɪʏᴀ ɢᴇᴄ̧ɪʟᴅɪ 🎄\n│ \n└ʙʏ : {mention} 🥀"
             popped = None
             try:
                 popped = check.pop(0)
@@ -396,7 +396,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                     await auto_clean(popped)
                 if not check:
                     await CallbackQuery.edit_message_text(
-                        f"➻ sᴛʀᴇᴀᴍ sᴋɪᴩᴩᴇᴅ 🎄\n│ \n└ʙʏ : {mention} 🥀"
+                        f"➻ sɪʀᴀᴅᴀᴋɪ şᴀʀᴋɪʏᴀ ɢᴇᴄ̧ɪʟᴅɪ 🎄\n│ \n└ʙʏ : {mention} 🥀"
                     )
                     await CallbackQuery.message.reply_text(
                         text=_["admin_6"].format(
@@ -411,7 +411,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             except:
                 try:
                     await CallbackQuery.edit_message_text(
-                        f"➻ sᴛʀᴇᴀᴍ sᴋɪᴩᴩᴇᴅ 🎄\n│ \n└ʙʏ : {mention} 🥀"
+                        f"➻ sɪʀᴀᴅᴀᴋɪ şᴀʀᴋɪʏᴀ ɢᴇᴄ̧ɪʟᴅɪ 🎄\n│ \n└ʙʏ : {mention} 🥀"
                     )
                     await CallbackQuery.message.reply_text(
                         text=_["admin_6"].format(
@@ -423,7 +423,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                 except:
                     return
         else:
-            txt = f"➻ sᴛʀᴇᴀᴍ ʀᴇ-ᴘʟᴀʏᴇᴅ 🎄\n│ \n└ʙʏ : {mention} 🥀"
+            txt = f"➻ ʏᴀʏɪɴ ʏᴇɴɪᴅᴇɴ ʙᴀşʟᴀᴛɪʟᴅɪ 🎄\n│ \n└ʙʏ : {mention} 🥀"
         
         await CallbackQuery.answer()
         
