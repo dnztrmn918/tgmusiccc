@@ -101,3 +101,4 @@ async def earn_coins(_, message):
             {"$inc": {"coins": reward}},
             upsert=True
         )
+        
