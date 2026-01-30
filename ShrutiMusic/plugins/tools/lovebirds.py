@@ -3,7 +3,6 @@ import asyncio
 from pyrogram import filters
 from ShrutiMusic import app
 from ShrutiMusic.core.mongo import mongodb
-from config import MONGO_DB_URI
 
 lovebirds_db = mongodb.lovebirds
 users_collection = lovebirds_db.users
@@ -36,10 +35,11 @@ async def get_user_data(user_id):
 
 @app.on_message(filters.command(["balance", "bal", "cuzdan"], prefixes=["/", "!", "."]))
 async def balance(_, message):
+    if not message.from_user:
+        return
     uid = message.from_user.id
     username = message.from_user.first_name
     user_data = await get_user_data(uid)
-    
     gifts_received = await gifts_collection.count_documents({"receiver_id": uid})
     
     balance_text = f"""
@@ -81,24 +81,20 @@ async def send_gift(_, message):
     if sender_data["coins"] < gift_info["cost"]:
         return await message.reply_text(f"😢 <b>ʙᴀᴋɪʏᴇ ʏᴇᴛᴇʀsɪᴢ!</b>\nᴍᴀʟɪʏᴇᴛ: {gift_info['cost']} ᴄᴏɪɴs")
 
-    # Coin düş ve hediyeyi kaydet
     await users_collection.update_one({"user_id": sender_id}, {"$inc": {"coins": -gift_info['cost'], "total_gifts_sent": 1}})
-    
     await gifts_collection.insert_one({
         "sender_id": sender_id,
         "receiver_username": target_username,
         "gift_emoji": gift_emoji,
         "claimed": False
     })
-    
     await message.reply_text(f"🎉 <b>{message.from_user.first_name}</b>, @{target_username} ᴋᴜʟʟᴀɴɪᴄɪsɪɴᴀ {gift_emoji} <b>{gift_info['name']}</b> ɢᴏ̈ɴᴅᴇʀᴅɪ!")
-
-# --- HATA VEREN VE EKSİK KALAN KISIM (DÜZELTİLDİ) ---
 
 @app.on_message(filters.group & ~filters.bot, group=10)
 async def earn_coins(_, message):
-    """Kullanıcılar grupta her mesaj yazdığında %20 ihtimalle 1-3 coin kazanır."""
-    if random.random() < 0.20: # %20 şans
+    if not message.from_user:
+        return
+    if random.random() < 0.20:
         reward = random.randint(1, 3)
         await users_collection.update_one(
             {"user_id": message.from_user.id},
