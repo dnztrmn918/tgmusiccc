@@ -1,13 +1,17 @@
 import random
+import asyncio
 from pyrogram import filters
+from pyrogram.types import Message
 from ShrutiMusic import app
 from ShrutiMusic.core.mongo import mongodb
 from config import MONGO_DB_URI
 
+# --- VERİTABANI BAĞLANTILARI ---
 lovebirds_db = mongodb.lovebirds
 users_collection = lovebirds_db.users
 gifts_collection = lovebirds_db.gifts
 
+# --- HEDİYE TANIMLAMALARI ---
 GIFTS = {
     "🌹": {"name": "Gül", "cost": 10, "emoji": "🌹"},
     "🍫": {"name": "Çikolata", "cost": 20, "emoji": "🍫"},
@@ -26,7 +30,10 @@ GIFTS = {
     "🍓": {"name": "Çilek", "cost": 12, "emoji": "🍓"}
 }
 
+# --- FONKSİYONLAR ---
+
 async def get_user_data(user_id):
+    """Kullanıcı verilerini getirir veya yeni kayıt oluşturur."""
     try:
         user_data = await users_collection.find_one({"user_id": user_id})
         if not user_data:
@@ -35,314 +42,147 @@ async def get_user_data(user_id):
                 "coins": 50,
                 "total_gifts_received": 0,
                 "total_gifts_sent": 0,
+                "last_chat_name": "Bilinmiyor",
                 "created_at": "2026"
             }
             await users_collection.insert_one(new_user)
             return new_user
         return user_data
-    except:
-        return {"user_id": user_id, "coins": 0, "total_gifts_received": 0, "total_gifts_sent": 0}
+    except Exception as e:
+        print(f"Hata: get_user_data - {e}")
+        return {"user_id": user_id, "coins": 0}
 
-async def update_user_coins(user_id, amount):
+async def update_user_coins(user_id, amount, chat_name=None):
+    """Kullanıcı bakiyesini ve bulunduğu son grubu günceller."""
     try:
-        await users_collection.update_one(
-            {"user_id": user_id},
-            {"$inc": {"coins": amount}},
-            upsert=True
-        )
-    except:
-        pass
-
-async def get_user_gifts(user_id, gift_type="received"):
-    try:
-        if gift_type == "received":
-            gifts = await gifts_collection.find({"receiver_id": user_id}).to_list(length=None)
-        else:
-            gifts = await gifts_collection.find({"sender_id": user_id}).to_list(length=None)
-        return gifts
-    except:
-        return []
+        update_query = {"$inc": {"coins": amount}}
+        if chat_name:
+            update_query["$set"] = {"last_chat_name": chat_name}
+        await users_collection.update_one({"user_id": user_id}, update_query, upsert=True)
+    except Exception as e:
+        print(f"Hata: update_user_coins - {e}")
 
 def get_user_info(message):
+    """Mesajdan kullanıcı ID ve isim bilgisini ayıklar."""
     try:
         if not message.from_user:
             return None, None
-        user_id = message.from_user.id
-        username = message.from_user.username or message.from_user.first_name
-        return user_id, username
+        return message.from_user.id, message.from_user.first_name
     except:
         return None, None
 
-@app.on_message(filters.command(["cuzdan", "bal", "balance"], prefixes=["/", "!", "."]))
-async def balance(_, message):
-    try:
-        uid, username = get_user_info(message)
-        if not uid:
-            return
-        
-        user_data = await get_user_data(uid)
-        
-        coins = user_data["coins"]
-        gifts_received = await gifts_collection.count_documents({"receiver_id": uid})
-        gifts_sent = await gifts_collection.count_documents({"sender_id": uid})
-        
-        balance_text = f"""
-💰 <b>{username} Hesabı</b>
-💸 <b>Bakiye:</b> {coins} coin
-🎁 <b>Alınan Hediyeler:</b> {gifts_received}
-📤 <b>Gönderilen Hediyeler:</b> {gifts_sent}
+# --- KOMUTLAR ---
 
-💡 <b>İpucu:</b> Coin kazanmak için grupta mesaj gönderin!
-        """
-        await message.reply_text(balance_text)
-    except:
-        pass
+@app.on_message(filters.command(["cuzdan", "bal", "balance"], prefixes=["/", "!", "."]))
+async def balance(_, message: Message):
+    uid, username = get_user_info(message)
+    if not uid: return
+    user_data = await get_user_data(uid)
+    received = await gifts_collection.count_documents({"receiver_id": uid})
+    sent = await gifts_collection.count_documents({"sender_id": uid})
+    
+    text = (f"💰 <b>{username} Profili</b>\n\n"
+            f"💸 <b>Bakiye:</b> <code>{user_data['coins']}</code> coin\n"
+            f"🎁 <b>Alınan:</b> {received}\n"
+            f"📤 <b>Gönderilen:</b> {sent}\n\n"
+            f"💡 <i>Grupta aktif olarak coin kazanabilirsin!</i>")
+    await message.reply_text(text)
 
 @app.on_message(filters.command(["hediyeler", "gifts"], prefixes=["/", "!", "."]))
-async def gift_list(_, message):
-    try:
-        text = "🎁 <b>Mevcut Hediyeler:</b>\n\n"
-        sorted_gifts = sorted(GIFTS.items(), key=lambda x: x[1]["cost"])
-        
-        for emoji, gift_info in sorted_gifts:
-            text += f"{emoji} <b>{gift_info['name']}</b> - {gift_info['cost']} coin\n"
-        
-        text += "\n📝 <b>Kullanım:</b> /hediyegonder @kullaniciadi Emoji"
-        text += "\n💡 <b>Örnek:</b> /hediyegonder @dnztrmnn 🌹"
-        
-        await message.reply_text(text)
-    except:
-        pass
+async def gift_list(_, message: Message):
+    text = "🎁 <b>Hediye Mağazası</b>\n\n"
+    for emoj, info in sorted(GIFTS.items(), key=lambda x: x[1]["cost"]):
+        text += f"{emoj} {info['name']} — <b>{info['cost']}</b> coin\n"
+    text += "\n📝 <i>Örnek: /hediyegonder @kullanici 🌹</i>"
+    await message.reply_text(text)
 
 @app.on_message(filters.command(["hediyegonder", "sendgift"], prefixes=["/", "!", "."]))
-async def send_gift(_, message):
-    try:
-        parts = message.text.split(" ")
-        if len(parts) < 3:
-            return await message.reply_text("❌ <b>Kullanım:</b> /hediyegonder @kullaniciadi Emoji\n💡 <b>Örnek:</b> /hediyegonder @dnztrmnn 🌹")
-        
-        target = parts[1].replace("@", "")
-        gift_emoji = parts[2]
-        
-        sender_id, sender_name = get_user_info(message)
-        if not sender_id:
-            return
-        
-        sender_data = await get_user_data(sender_id)
-        
-        if gift_emoji not in GIFTS:
-            return await message.reply_text("❌ <b>Geçersiz hediye!</b> Mevcut hediyeleri görmek için /hediyeler yazın.")
-        
-        gift_info = GIFTS[gift_emoji]
-        cost = gift_info["cost"]
-        
-        if sender_data["coins"] < cost:
-            return await message.reply_text(f"😢 <b>Yetersiz bakiye!</b>\n💰 {cost} coine ihtiyacınız var ama sizde {sender_data['coins']} coin var.")
-        
-        await users_collection.update_one(
-            {"user_id": sender_id},
-            {"$inc": {"coins": -cost, "total_gifts_sent": 1}}
-        )
-        
-        gift_record = {
-            "sender_id": sender_id,
-            "sender_name": sender_name,
-            "receiver_name": target,
-            "receiver_id": None,
-            "gift_name": gift_info["name"],
-            "gift_emoji": gift_emoji,
-            "cost": cost,
-            "timestamp": "2026",
-            "claimed": False
-        }
-        
-        await gifts_collection.insert_one(gift_record)
-        updated_sender = await get_user_data(sender_id)
-        
-        success_msg = f"""
-🎉 <b>Hediye Başarıyla Gönderildi!</b>
-
-{gift_emoji} <b>{sender_name}</b>, <b>@{target}</b> kullanıcısına <b>{gift_info['name']}</b> gönderdi!
-
-💝 <b>Hediye Detayları:</b>
-• <b>Hediye:</b> {gift_emoji} {gift_info['name']}
-• <b>Ücret:</b> {cost} coin
-• <b>Gönderen:</b> {sender_name}
-• <b>Alıcı:</b> @{target}
-
-💰 <b>{sender_name} kalan bakiyesi:</b> {updated_sender['coins']}
-
-💕 <i>Aşk her yerde!</i>
-        """
-        
-        await message.reply_text(success_msg)
-    except:
-        pass
-
-async def claim_pending_gifts(user_id, username):
-    try:
-        pending_gifts = await gifts_collection.find({
-            "receiver_name": username,
-            "claimed": False
-        }).to_list(length=None)
-        
-        if pending_gifts:
-            total_bonus = 0
-            gift_count = len(pending_gifts)
-            
-            for gift in pending_gifts:
-                await gifts_collection.update_one(
-                    {"_id": gift["_id"]},
-                    {
-                        "$set": {
-                            "receiver_id": user_id,
-                            "claimed": True
-                        }
-                    }
-                )
-                total_bonus += 5
-            
-            await users_collection.update_one(
-                {"user_id": user_id},
-                {"$inc": {"coins": total_bonus, "total_gifts_received": gift_count}}
-            )
-            
-            return gift_count, total_bonus
-        
-        return 0, 0
-    except:
-        return 0, 0
+async def send_gift(_, message: Message):
+    parts = message.text.split()
+    if len(parts) < 3:
+        return await message.reply_text("❌ <b>Hatalı kullanım!</b>\nFormat: <code>/hediyegonder @etiket Emoji</code>")
+    
+    target = parts[1].replace("@", "")
+    gift_emoji = parts[2]
+    sid, sname = get_user_info(message)
+    
+    if gift_emoji not in GIFTS:
+        return await message.reply_text("❌ Bu hediye mağazada yok!")
+    
+    cost = GIFTS[gift_emoji]["cost"]
+    sdata = await get_user_data(sid)
+    
+    if sdata["coins"] < cost:
+        return await message.reply_text(f"😢 Bakiyen yetersiz! {cost} coin gerekli.")
+    
+    await update_user_coins(sid, -cost)
+    await gifts_collection.insert_one({
+        "sender_id": sid, "sender_name": sname, 
+        "receiver_name": target, "gift_emoji": gift_emoji, "claimed": False
+    })
+    await message.reply_text(f"🎉 <b>{sname}</b>, <b>@{target}</b> kullanıcısına {gift_emoji} gönderdi!")
 
 @app.on_message(filters.command(["hikaye", "story"], prefixes=["/", "!", "."]))
-async def love_story(_, message):
-    try:
-        parts = message.text.split(" ", 2)
-        if len(parts) < 3:
-            return await message.reply_text("❌ <b>Kullanım:</b> /hikaye İsim1 İsim2\n💡 <b>Örnek:</b> /hikaye Deniz Merve")
-        
-        name1, name2 = parts[1], parts[2]
-        
-        stories = [
-            f"Bir zamanlar <b>{name1}</b>, bir kahve dükkanında <b>{name2}</b> ile tanıştı ☕. Gözleri buharlı fincanların üzerinde buluştu ve kader aşk hikayelerini yazmaya başladı ❤️✨",
-            f"Kalabalık bir kütüphanede 📚, <b>{name1}</b> ve <b>{name2}</b> aynı kitaba uzandılar. Parmakları birbirine değdi ve sihir gibi kıvılcımlar uçuştu 💫💕",
-            f"<b>{name1}</b> yağmurda yürürken 🌧️, <b>{name2}</b> bir şemsiye uzattı ☂️. O ortak sığınak altında, aşk yağmur sonrası çiçekler gibi açtı 🌸",
-            f"Bir konserde 🎵, <b>{name1}</b> ve <b>{name2}</b> kendilerini aynı şarkıyı söylerken buldular. Sesleri ve kalpleri tam bir uyum içindeydi 🎶❤️",
-            f"<b>{name1}</b> yabancı bir şehirde kaybolmuşken 🏙️, <b>{name2}</b> yol gösterdi. Birlikte yürüdüler ve sadece yolu değil, birbirlerini de buldular 💝",
-            f"Güzel bir bahçede 🌺, <b>{name1}</b> güllere hayran kalmışken <b>{name2}</b> bir rüya gibi belirdi. Birlikte bahçeyi daha da güzelleştirdiler 🌹✨",
-            f"<b>{name1}</b> kitaplarını düşürdü 📖, <b>{name2}</b> toplamasına yardım etti. O basit anda, aynı aşk hikayesini okuduklarını fark ettiler 💘",
-            f"Gün batımında kumsalda 🌅, <b>{name1}</b> ve <b>{name2}</b> kumdan kaleler yaptılar 🏰. Kalpleri ise çok daha güçlü bir şey inşa etti: sonsuz aşk 💞",
-            f"<b>{name1}</b> parkta kuşları beslerken 🐦, <b>{name2}</b> daha fazla ekmek kırıntısıyla ona katıldı. Birlikte neşe ve kahkaha dolu bir senfoni yarattılar 🎭💕",
-            f"Bir elektrik kesintisi sırasında 🕯️, <b>{name1}</b> ve <b>{name2}</b> mum ışığında hikayeler paylaştılar. O karanlıkta, en parlak ışıklarını buldular - birbirlerini ✨❤️"
-        ]
-        
-        story = random.choice(stories)
-        
-        endings = [
-            "\n\n💕 <i>Ve sonsuza dek mutlu yaşadılar...</i>",
-            "\n\n❤️ <i>Gerçek aşk her zaman bir yolunu bulur...</i>",
-            "\n\n💞 <i>Bazı insanlar tüm hayatlarını birbirlerinde buldukları şeyi arayarak geçirir...</i>",
-            "\n\n✨ <i>Kaos dolu bir dünyada, birbirlerinde huzuru buldular...</i>",
-            "\n\n💝 <i>Aşk mükemmel kişiyi bulmak değil, senin için mükemmel olanı bulmaktır...</i>"
-        ]
-        
-        story += random.choice(endings)
-        
-        romantic_header = random.choice([
-            "💕 <b>Aşk Hikayesi</b> 💕",
-            "❤️ <b>Bir Aşk Masalı</b> ❤️", 
-            "💞 <b>Romantik Hikaye</b> 💞",
-            "✨ <b>Aşk Günlükleri</b> ✨",
-            "🌹 <b>Romantik Masal</b> 🌹"
-        ])
-        
-        final_story = f"{romantic_header}\n\n{story}"
-        await message.reply_text(final_story)
-        
-        uid, _ = get_user_info(message)
-        if uid:
-            await update_user_coins(uid, 5)
-    except:
-        pass
+async def love_story(_, message: Message):
+    parts = message.text.split(None, 2)
+    if len(parts) < 3: return
+    n1, n2 = parts[1], parts[2]
+    
+    # --- GENİŞ HİKAYE HAVUZU ---
+    sts = [
+        f"Bir zamanlar <b>{n1}</b> ve <b>{n2}</b> ☕ bir kahve dükkanında tanıştılar. Gözleri buluştuğunda zaman durdu...",
+        f"<b>{n1}</b> kütüphanede 📚 kitap ararken <b>{n2}</b> ona yardım etti. O an yeni bir sayfa açıldı.",
+        f"Yağmurlu bir günde 🌧️ <b>{n1}</b> şemsiyesini <b>{n2}</b> ile paylaştı. Kalpleri ısınmaya başladı.",
+        f"<b>{n1}</b> ve <b>{n2}</b> bir konserde 🎵 aynı nakarata eşlik ettiler. Ruhları bir oldu.",
+        f"Yıldızların altında ✨ <b>{n1}</b> bir dilek tuttu, o sırada <b>{n2}</b> yanına geldi. Dileği gerçek olmuştu.",
+        f"Deniz kenarında 🌊 <b>{n1}</b> bir şişe buldu, içinde <b>{n2}</b>'den gelen asırlık bir aşk mektubu vardı.",
+        f"<b>{n1}</b> ve <b>{n2}</b> karlı bir günde ❄️ kartopu oynarken birbirlerinin gülüşüne aşık oldular.",
+        f"Eski bir trende 🚂 <b>{n1}</b> ve <b>{n2}</b> yan yana oturdular. Yolculuk hiç bitmesin istediler.",
+        f"<b>{n1}</b> çiçekçide 🌸 <b>{n2}</b> için en güzel gülü seçerken aslında kalbini veriyordu.",
+        f"Karanlık bir sokakta 🕯️ <b>{n1}</b>'in yolunu <b>{n2}</b> aydınlattı. Artık beraber yürüyorlar."
+    ]
+    await message.reply_text(f"💕 <b>Aşk Masalı</b>\n\n{random.choice(sts)}\n\n✨ <i>Aşk tesadüfleri sever...</i>")
+    uid, _ = get_user_info(message)
+    if uid: await update_user_coins(uid, 5, message.chat.title)
 
-@app.on_message(filters.command(["hediyelerim", "mygifts", "received"], prefixes=["/", "!", "."]))
-async def my_gifts(_, message):
+@app.on_message(filters.command(["zenginler", "top"], prefixes=["/", "!", "."]))
+async def leaderboard(_, message: Message):
     try:
-        uid, username = get_user_info(message)
-        if not uid:
-            return
+        top_list = await users_collection.find().sort("coins", -1).limit(10).to_list(10)
+        if not top_list: return
         
-        await get_user_data(uid)
-        
-        gifts_received = await gifts_collection.find({"receiver_id": uid}).to_list(length=10)
-        
-        if not gifts_received:
-            await message.reply_text(f"📭 <b>{username}</b>, henüz hiç hediye almadınız!\n💡 Birinden size hediye göndermesini isteyebilirsiniz: /hediyegonder")
-            return
-        
-        gifts_text = f"🎁 <b>{username} Tarafından Alınan Hediyeler:</b>\n\n"
-        
-        for i, gift in enumerate(gifts_received, 1):
-            gifts_text += f"{i}. {gift['gift_emoji']} <b>{gift['gift_name']}</b> - Gönderen: <b>{gift['sender_name']}</b>\n"
-        
-        total_gifts = await gifts_collection.count_documents({"receiver_id": uid})
-        gifts_text += f"\n💝 <b>Toplam alınan hediye:</b> {total_gifts}"
-        
-        await message.reply_text(gifts_text)
-    except:
-        pass
-
-@app.on_message(filters.command(["zenginler", "top", "leaderboard"], prefixes=["/", "!", "."]))
-async def leaderboard(_, message):
-    try:
-        top_users = await users_collection.find().sort("coins", -1).limit(10).to_list(length=10)
-        
-        if not top_users:
-            await message.reply_text("📊 Sıralamada kullanıcı bulunamadı!")
-            return
-        
-        leaderboard_text = "🏆 <b>En Zengin 10 Kullanıcı</b>\n\n"
+        res = "🏆 <b>En Zengin 10 Kullanıcı</b>\n\n"
         medals = ["🥇", "🥈", "🥉", "🏅", "🏅", "🏅", "🏅", "🏅", "🏅", "🏅"]
         
-        for i, user in enumerate(top_users):
-            u_id = user['user_id']
+        for i, u in enumerate(top_list):
+            uid = u['user_id']
+            grp = u.get("last_chat_name", "Bilinmiyor")
             try:
-                # Gruptan kullanıcı adını çekmeyi dene
-                member = await app.get_chat_member(message.chat.id, u_id)
-                u_name = member.user.first_name
-                display_name = f"<a href='tg://user?id={u_id}'>{u_name}</a>"
+                user_obj = await app.get_users(uid)
+                uname = user_obj.first_name if user_obj.first_name else "Gizli"
             except:
-                # Çekemezse direkt profil linkiyle beraber ID yaz
-                display_name = f"<a href='tg://user?id={u_id}'>Kullanıcı {u_id}</a>"
-                
-            leaderboard_text += f"{medals[i]} {display_name} - <b>{user['coins']}</b> coin\n"
+                uname = f"Kullanıcı {uid}"
+            
+            res += f"{medals[i]} <a href='tg://user?id={uid}'>{uname}</a> — <i>{grp}</i> — <b>{u['coins']}</b> coin\n"
         
-        await message.reply_text(leaderboard_text, disable_web_page_preview=True)
-    except:
-        pass
+        await message.reply_text(res, disable_web_page_preview=True)
+    except Exception as e:
+        print(f"Leaderboard hatası: {e}")
 
 @app.on_message(filters.text & ~filters.regex(r"^[/!.\-]"))
-async def give_coins_and_claim_gifts(_, message):
-    try:
-        uid, username = get_user_info(message)
-        if not uid:
-            return
-        
-        await get_user_data(uid)
-        
-        gift_count, bonus_coins = await claim_pending_gifts(uid, username)
-        
-        if gift_count > 0:
-            claim_msg = f"""
-🎁 <b>Hediyeler Alındı!</b>
+async def message_handler(_, message: Message):
+    uid, uname = get_user_info(message)
+    if not uid: return
+    # Bekleyen hediyeleri kontrol et
+    pending = await gifts_collection.find({"receiver_name": uname, "claimed": False}).to_list(None)
+    if pending:
+        for g in pending:
+            await gifts_collection.update_one({"_id": g["_id"]}, {"$set": {"receiver_id": uid, "claimed": True}})
+            await update_user_coins(uid, 5) # Hediye başı bonus
+        await message.reply_text(f"🎁 <b>{uname}</b>, bekleyen hediyelerin teslim edildi! +Bonus coin.")
+    
+    # Rastgele coin şansı
+    if random.randint(1, 100) <= 20:
+        await update_user_coins(uid, 1, message.chat.title)
 
-<b>{username}</b>, bekleyen <b>{gift_count}</b> hediyeni aldın!
-💰 <b>Kazanılan bonus:</b> {bonus_coins} coin
-
-Aldığın hediyeleri görmek için /hediyelerim yazabilirsin! 💝
-            """
-            await message.reply_text(claim_msg)
-        
-        if random.randint(1, 100) <= 20:
-            await update_user_coins(uid, 1)
-    except:
-        pass
+# --- DOSYA SONU ---
