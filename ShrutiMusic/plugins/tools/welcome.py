@@ -45,9 +45,9 @@ def welcomepic(pic, user, chat, id, uname):
     draw = ImageDraw.Draw(background)
     font = ImageFont.truetype('ShrutiMusic/assets/font.ttf', size=45)
     font2 = ImageFont.truetype('ShrutiMusic/assets/font.ttf', size=90)
-    draw.text((65, 250), f'NAME : {unidecode(user)}', fill="white", font=font)
+    draw.text((65, 250), f'ISIM : {unidecode(user)}', fill="white", font=font)
     draw.text((65, 340), f'ID : {id}', fill="white", font=font)
-    draw.text((65, 430), f"USERNAME : {uname}", fill="white", font=font)
+    draw.text((65, 430), f"KULLANICI ADI : {uname}", fill="white", font=font)
     pfp_position = (767, 133)  
     background.paste(pfp, pfp_position, pfp)  
     background.save(f"downloads/welcome#{id}.png")
@@ -55,7 +55,7 @@ def welcomepic(pic, user, chat, id, uname):
 
 @app.on_message(filters.command("welcome") & ~filters.private)
 async def auto_state(_, message):
-    usage = "<b>❖ ᴜsᴀɢᴇ ➥</b> /welcome [on|off]"
+    usage = "<b>❖ Kullanım ➥</b> /welcome [on|off]"
     if len(message.command) == 1:
         return await message.reply_text(usage)
 
@@ -67,28 +67,28 @@ async def auto_state(_, message):
         state = message.text.split(None, 1)[1].strip().lower()
 
         if state == "on":
-            if A and not A.get("disabled", False):
-                return await message.reply_text("✦ Special Welcome Already Enabled")
+            if A and not A.get("disabled", True):
+                return await message.reply_text("✦ Özel Karşılama Zaten Etkin.")
             await wlcm.update_one({"chat_id": chat_id}, {"$set": {"disabled": False}}, upsert=True)
-            await message.reply_text(f"✦ Enabled Special Welcome in {message.chat.title}")
+            await message.reply_text(f"✦ {message.chat.title} Grubunda Özel Karşılama Etkinleştirildi.")
 
         elif state == "off":
-            if A and A.get("disabled", False):
-                return await message.reply_text("✦ Special Welcome Already Disabled")
+            if A and A.get("disabled", True):
+                return await message.reply_text("✦ Özel Karşılama Zaten Devre Dışı.")
             await wlcm.update_one({"chat_id": chat_id}, {"$set": {"disabled": True}}, upsert=True)
-            await message.reply_text(f"✦ Disabled Special Welcome in {message.chat.title}")
+            await message.reply_text(f"✦ {message.chat.title} Grubunda Özel Karşılama Devre Dışı Bırakıldı.")
 
         else:
             await message.reply_text(usage)
     else:
-        await message.reply("✦ Only Admins Can Use This Command")
+        await message.reply("✦ Bu komutu sadece yöneticiler kullanabilir.")
 
 @app.on_chat_member_updated(filters.group, group=-3)
 async def greet_group(_, member: ChatMemberUpdated):
     chat_id = member.chat.id
     A = await wlcm.find_one({"chat_id": chat_id})
 
-    if A and A.get("disabled", False):  
+    if A and A.get("disabled", True):  
         return
 
     if (
@@ -119,15 +119,15 @@ async def greet_group(_, member: ChatMemberUpdated):
         temp.MELCOW[f"welcome-{member.chat.id}"] = await app.send_photo(
             member.chat.id,
             photo=welcomeimg,
-            caption=f"""🌟 <b>ᴡᴇʟᴄᴏᴍᴇ {user.mention}!</b>
+            caption=f"""🌟 <b>ᴀʀᴀᴍıᴢᴀ ʜᴏş ɢᴇʟᴅɪɴ {user.mention}!</b>
 
-📋 <b>ɢʀᴏᴜᴘ:</b> {member.chat.title}
-🆔 <b>ʏᴏᴜʀ ɪᴅ:</b> <code>{user.id}</code>
-👤 <b>ᴜsᴇʀɴᴀᴍᴇ:</b> @{user.username if user.username else "ɴᴏᴛ sᴇᴛ"}
+📋 <b>ɢʀᴜᴘ:</b> {member.chat.title}
+🆔 <b>ɪᴅ:</b> <code>{user.id}</code>
+👤 <b>ᴋᴜʟʟᴀɴıᴄı ᴀᴅı:</b> @{user.username if user.username else "ʏᴏᴋ"}
 
-<b><u>ʜᴏᴘᴇ ʏᴏᴜ ғɪɴᴅ ɢᴏᴏᴅ ᴠɪʙᴇs, ɴᴇᴡ ғʀɪᴇɴᴅs, ᴀɴᴅ ʟᴏᴛs ᴏғ ғᴜɴ ʜᴇʀᴇ!</u> 🌟</b>""",
+<b><u>ᴜᴍᴀʀıᴢ ʙᴜʀᴀᴅᴀ ɢüᴢᴇʟ ᴠᴀᴋɪᴛ ɢᴇçɪʀɪʀ, ʏᴇɴɪ ᴀʀᴋᴀᴅᴀşʟᴀʀ ᴇᴅɪɴɪʀsɪɴ!</u> 🌟</b>""",
             reply_markup=InlineKeyboardMarkup([
-                [InlineKeyboardButton("🎵 ᴀᴅᴅ ᴍᴇ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ 🎵", url=f"https://t.me/{app.username}?startgroup=True")]
+                [InlineKeyboardButton("🎵 ʙᴇɴɪ ɢʀᴜʙᴜɴᴀ ᴇᴋʟᴇ 🎵", url=f"https://t.me/{app.username}?startgroup=True")]
             ]),
         )
 
