@@ -301,13 +301,21 @@ async def leaderboard(_, message):
             return
         
         leaderboard_text = "🏆 <b>En Zengin 10 Kullanıcı</b>\n\n"
-        medals = ["🥇", "🥈", "🥉"] + ["🏅"] * 7
+        medals = ["🥇", "🥈", "🥉", "🏅", "🏅", "🏅", "🏅", "🏅", "🏅", "🏅"]
         
         for i, user in enumerate(top_users):
-            medal = medals[i] if i < len(medals) else "🏅"
-            leaderboard_text += f"{medal} <b>Kullanıcı {user['user_id']}</b> - {user['coins']} coin\n"
+            medal = medals[i]
+            user_id = user['user_id']
+            try:
+                # İsmi çekip tıklanabilir (mention) yapıyoruz
+                get_user = await app.get_users(user_id)
+                user_name = f"<a href='tg://user?id={user_id}'>{get_user.first_name}</a>"
+            except:
+                user_name = f"Kullanıcı <code>{user_id}</code>"
+                
+            leaderboard_text += f"{medal} {user_name} - {user['coins']} coin\n"
         
-        await message.reply_text(leaderboard_text)
+        await message.reply_text(leaderboard_text, disable_web_page_preview=True)
     except:
         pass
 
