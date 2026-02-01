@@ -304,16 +304,17 @@ async def leaderboard(_, message):
         medals = ["🥇", "🥈", "🥉", "🏅", "🏅", "🏅", "🏅", "🏅", "🏅", "🏅"]
         
         for i, user in enumerate(top_users):
-            medal = medals[i]
-            user_id = user['user_id']
+            u_id = user['user_id']
             try:
-                # İsmi çekip tıklanabilir (mention) yapıyoruz
-                get_user = await app.get_users(user_id)
-                user_name = f"<a href='tg://user?id={user_id}'>{get_user.first_name}</a>"
+                # Gruptan kullanıcı adını çekmeyi dene
+                member = await app.get_chat_member(message.chat.id, u_id)
+                u_name = member.user.first_name
+                display_name = f"<a href='tg://user?id={u_id}'>{u_name}</a>"
             except:
-                user_name = f"Kullanıcı <code>{user_id}</code>"
+                # Çekemezse direkt profil linkiyle beraber ID yaz
+                display_name = f"<a href='tg://user?id={u_id}'>Kullanıcı {u_id}</a>"
                 
-            leaderboard_text += f"{medal} {user_name} - {user['coins']} coin\n"
+            leaderboard_text += f"{medals[i]} {display_name} - <b>{user['coins']}</b> coin\n"
         
         await message.reply_text(leaderboard_text, disable_web_page_preview=True)
     except:
