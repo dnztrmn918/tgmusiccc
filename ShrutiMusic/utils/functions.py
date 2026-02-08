@@ -56,7 +56,7 @@ MARKDOWN = """
 <code>||spoiler||</code>: ᴛʜɪs ᴡɪʟʟ sʜᴏᴡ ᴀs <spoiler>Spoiler</spoiler> ᴛᴇxᴛ.
 <code>[hyperlink](google.com)</code>: ᴛʜɪs ᴡɪʟʟ ᴄʀᴇᴀᴛᴇ ᴀ <a href='https://www.google.com'>hyperlink</a> text
 <code>> hello</code>  ᴛʜɪs ᴡɪʟʟ sʜᴏᴡ ᴀs <blockquote>hello</blockquote>
-<b>Note:</b> ʏᴏᴜ ᴄᴀɴ ᴜsᴇ ʙᴏᴛʜ ᴍᴀʀᴋᴅᴏᴡɴ & ʜᴛᴍʟ ᴛᴀɢs.
+<b>Note:</b> ʏᴏᴜ ᴄᴀɴ ᴜsᴇ ʙᴏᴛʜ ᴍᴀʀᴋᴅᴏᴍɴ & ʜᴛᴍʟ ᴛᴀɢs.
 
 
 <u>ʙᴜᴛᴛᴏɴ ғᴏʀᴍᴀᴛᴛɪɴɢ:</u>
@@ -103,7 +103,7 @@ button2=[Github, https://github.com]
 
 <b>NOTES -></b>
 
-ᴄʜᴇᴄᴋᴏᴜᴛ /markdownhelp ᴛᴏ ᴋɴᴏᴡ ᴍᴏʀᴇ ᴀʙᴏᴜᴛ ғᴏʀᴍᴀᴛᴛɪɴɢs ᴀɴᴅ ᴏᴛʜᴇʀ sʏɴᴛᴀx.
+ᴄʜᴇᴄᴋᴏᴜᴛ /markdownhelp ᴛᴏ ᴋɴᴏᴡ ᴍᴇʀᴇ ᴀʙᴏᴜᴛ ғᴏʀᴍᴀᴛᴛɪɴɢs ᴀɴᴅ ᴏᴛʜᴇʀ sʏɴᴛᴀx.
 """
 
 
@@ -194,7 +194,7 @@ async def get_data_and_name(replied_message, message):
 
 async def extract_userid(message, text: str):
     """
-    NOT TO BE USED OUTSIDE THIS FILE
+    Kilitlenme hatasını gideren iyileştirilmiş versiyon.
     """
 
     def is_int(text: str):
@@ -211,13 +211,20 @@ async def extract_userid(message, text: str):
 
     entities = message.entities
     app = message._client
-    if len(entities) < 2:
-        return (await app.get_users(text)).id
-    entity = entities[1]
-    if entity.type == MessageEntityType.MENTION:
-        return (await app.get_users(text)).id
-    if entity.type == MessageEntityType.TEXT_MENTION:
-        return entity.user.id
+    
+    # Kilitlenmeyi önlemek için try-except bloğu eklendi
+    try:
+        if len(entities) < 2:
+            return (await app.get_users(text)).id
+        entity = entities[1]
+        if entity.type == MessageEntityType.MENTION:
+            return (await app.get_users(text)).id
+        if entity.type == MessageEntityType.TEXT_MENTION:
+            return entity.user.id
+    except (errors.UsernameInvalid, errors.UsernameNotOccupied, errors.PeerIdInvalid, errors.UserIdInvalid):
+        # Loglarındaki USERNAME_NOT_OCCUPIED hatasını burada yakalayıp None dönüyoruz
+        return None
+        
     return None
 
 
@@ -230,7 +237,6 @@ async def extract_user_and_reason(message, sender_chat=False):
     try:
         if message.reply_to_message:
             reply = message.reply_to_message
-            # if reply to a message and no reason is given
             if not reply.from_user:
                 if (
                     reply.sender_chat
@@ -249,20 +255,21 @@ async def extract_user_and_reason(message, sender_chat=False):
                 reason = text.split(None, 1)[1]
             return id_, reason
 
-        # if not reply to a message and no reason is given
         if len(args) == 2:
             user = text.split(None, 1)[1]
-            return await extract_userid(message, user), None
+            # extract_userid artık None dönebildiği için kontrol eklendi
+            extracted_id = await extract_userid(message, user)
+            return extracted_id, None
 
-        # if reason is given
         if len(args) > 2:
             user, reason = text.split(None, 2)[1:]
-            return await extract_userid(message, user), reason
+            extracted_id = await extract_userid(message, user)
+            return extracted_id, reason
 
         return user, reason
 
-    except errors.UsernameInvalid:
-        return "", ""
+    except (errors.UsernameInvalid, errors.UsernameNotOccupied):
+        return None, None
 
 
 async def extract_user(message):
@@ -335,4 +342,4 @@ async def time_converter(message: Message, time_value: str) -> datetime:
 # ===========================================
 
 
-# ❤️ Love From ShrutiBots 
+# ❤️ Love From ShrutiBots
